@@ -3,7 +3,7 @@
     <b-card
       class="loginCard"
       header="Login Form"
-      header-bg-variant="primary"
+      header-bg-variant="info"
       header-text-variant="white"
       header-tag="header"
     >
@@ -19,7 +19,7 @@
             <b-form-input v-model="password" type="password" id="formInputGroupUsername2"/>
           </b-input-group>
           <br>
-          <b-button type="submit" variant="primary">Login</b-button>
+          <b-button type="submit" variant="info">Login</b-button>
         </b-form>
       </div>
     </b-card>
@@ -34,18 +34,37 @@ export default {
   data: function() {
     return {
       username: "",
-      password: ""
+      password: "",
+      reponse: {}
     };
   },
   methods: {
     login: function() {
-      let loginUrl = process.env.VUE_APP_LOGIN_IN;
-      this.axios
-        .post(loginUrl, {
-          username: this.user,
-          password: this.pass
-        })
-        .then(function() {});
+      //let loginUrl = process.env.VUE_APP_LOGIN_IN;
+      // this.axios
+      //   .post(loginUrl, {
+      //     username: this.user,
+      //     password: this.pass
+      //   })
+      //   .then(function() {});
+
+      // this.axios(loginUrl, {
+      //   method: "POST",
+      //   mode: "no-cors",
+      //   data: {
+      //     username: this.user,
+      //     password: this.pass
+      //   },
+      //   headers: {
+      //     "Access-Control-Allow-Origin": "*",
+      //     "Content-Type": "application/x-www-form-urlencoded"
+      //   },
+      //   withCredentials: true,
+      //   credentials: "same-origin"
+      // }).then(function(response) {
+      //   this.response = response;
+      // });
+
       this.$router.push({ name: "user" });
     }
   }

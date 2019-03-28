@@ -6,7 +6,26 @@
       header-bg-variant="dark"
       header-text-variant="light"
     >
-      <b-table class="table" striped outlined hover :per-page="10" :items="transactions"/>
+      <b-table
+        class="table"
+        striped
+        outlined
+        hover
+        responsive
+        :per-page="perPage"
+        :current-page="currentPage"
+        :items="transaction"
+      />
+      <b-row>
+        <b-col md="6" class="my-1">
+          <b-pagination
+            :total-rows="totalRows"
+            :per-page="perPage"
+            v-model="currentPage"
+            class="my-0"
+          />
+        </b-col>
+      </b-row>
     </b-card>
   </div>
 </template>
@@ -14,9 +33,16 @@
 <script>
 export default {
   name: "transactions",
+  mounted: function() {
+    this.getTransactions();
+  },
   data: function() {
     return {
-      transactions: [
+      isBusy: false,
+      perPage: 5,
+      currentPage: 1,
+      totalRows: "",
+      transaction: [
         {
           isActive: true,
           id: 1,
@@ -44,9 +70,58 @@ export default {
           age: 38,
           first_name: "Jami",
           last_name: "Carney"
+        },
+        {
+          isActive: true,
+          id: 5,
+          age: 38,
+          first_name: "Jami",
+          last_name: "Carney"
+        },
+        {
+          isActive: true,
+          id: 6,
+          age: 38,
+          first_name: "Jami",
+          last_name: "Carney"
+        },
+        {
+          isActive: true,
+          id: 7,
+          age: 38,
+          first_name: "Jami",
+          last_name: "Carney"
+        },
+        {
+          isActive: true,
+          id: 8,
+          age: 38,
+          first_name: "Jami",
+          last_name: "Carney"
+        },
+        {
+          isActive: true,
+          id: 9,
+          age: 38,
+          first_name: "Jami",
+          last_name: "Carney"
         }
       ]
     };
+  },
+  methods: {
+    getTransactions: function() {
+      this.toggleBusy();
+      let transList = process.env.VUE_APP_TRANS_LIST;
+      this.axios.get(transList).then(function(response) {
+        this.transactions = response.body.transactions;
+      });
+      this.totalRows = this.transaction.length;
+      this.toggleBusy();
+    },
+    toggleBusy: function() {
+      this.isBusy = !this.isBusy;
+    }
   }
 };
 </script>

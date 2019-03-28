@@ -17,7 +17,10 @@ Vue.use(VueAxios, axios);
 Vue.use(BootstrapVue);
 
 Vue.axios.defaults.withCredentials = true;
-
+Vue.axios.defaults.crossDomain = true;
+Vue.axios.defaults.headers.post["Content-Type"] =
+  "application/x-www-form-urlencoded";
+Vue.axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
 Vue.axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
 
 new Vue({

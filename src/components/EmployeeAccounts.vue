@@ -8,14 +8,17 @@
     >
       <b-button class="btn" variant="info">Create New User</b-button>
       <b-table
+        ref="table"
         class="table"
         striped
         outlined
         hover
-        :per-page="10"
+        responsive
+        :current-page="currentPage"
+        :per-page="perPage"
         :fields="updateField()"
         :items="accounts"
-        @row-clicked="loadAccount()"
+        @row-clicked="loadAccount"
       >
         <template slot="Modify" slot-scope="data">
           <b-link :to="{name: 'edit', params: {id: data.item.id, action: 'modify'}}">
@@ -23,9 +26,19 @@
           </b-link>
         </template>
         <template slot="Delete" slot-scope="data">
-          <b-button variant="info" @click="accDelete(data.item.id)">Delete</b-button>
+          <b-button variant="info" @click="accDelete(data.index)">Delete</b-button>
         </template>
       </b-table>
+      <b-row>
+        <b-col md="6" class="my-1">
+          <b-pagination
+            :total-rows="totalRows"
+            :per-page="perPage"
+            v-model="currentPage"
+            class="my-0"
+          />
+        </b-col>
+      </b-row>
     </b-card>
   </div>
 </template>
@@ -39,31 +52,70 @@ export default {
   data: function() {
     return {
       isBusy: false,
+      user: "TIER3",
+      perPage: 5,
+      currentPage: 1,
+      totalRows: "",
       accounts: [
         {
           isActive: true,
-          id: 1,
+          user_id: "1",
           age: 40,
           first_name: "Dickerson",
           last_name: "Macdonald"
         },
         {
           isActive: false,
-          id: 2,
+          user_id: "2",
           age: 21,
           first_name: "Larsen",
           last_name: "Shaw"
         },
         {
           isActive: false,
-          id: 3,
+          user_id: "3",
           age: 89,
           first_name: "Geneva",
           last_name: "Wilson"
         },
         {
           isActive: true,
-          id: 4,
+          user_id: "4",
+          age: 38,
+          first_name: "Jami",
+          last_name: "Carney"
+        },
+        {
+          isActive: true,
+          user_id: "5",
+          age: 38,
+          first_name: "Jami",
+          last_name: "Carney"
+        },
+        {
+          isActive: true,
+          user_id: "6",
+          age: 38,
+          first_name: "Jami",
+          last_name: "Carney"
+        },
+        {
+          isActive: true,
+          user_id: "7",
+          age: 38,
+          first_name: "Jami",
+          last_name: "Carney"
+        },
+        {
+          isActive: true,
+          user_id: "8",
+          age: 38,
+          first_name: "Jami",
+          last_name: "Carney"
+        },
+        {
+          isActive: true,
+          user_id: "9",
           age: 38,
           first_name: "Jami",
           last_name: "Carney"
@@ -73,32 +125,33 @@ export default {
   },
   methods: {
     getUsers: function() {
-      let accountList = process.env.VUE_APP_USER_LIST;
+      this.toggleBusy();
+      let accountList = process.env.VUE_APP_EMPLY_LIST;
       this.axios.get(accountList).then(function(response) {
         this.accounts = response.body.users;
       });
+      this.totalRows = this.accounts.length;
       this.toggleBusy();
     },
     toggleBusy: function() {
       this.isBusy = !this.isBusy;
     },
-    accDelete: function(id) {
+    accDelete: function(i) {
+      var id = this.accounts.splice(i, 1).id;
       let deleteUrl = process.env.VUE_APP_USER + id;
-      this.axios
-        .delete(deleteUrl)
-        .then(function(response) {
-          if (response.status === 200 || response.status === 204) {
-            console.log("Success!");
-          }
-        })
-        .catch(function(error) {
-          this.error = error;
-        });
+      this.axios.delete(deleteUrl).then(function() {});
+      this.$refs.table.refresh();
     },
     updateField: function() {
       var field = Object.keys(this.accounts[0]);
       field.push("Modify", "Delete");
       return field;
+    },
+    loadAccount: function(item) {
+      this.$router.push({
+        name: "account",
+        params: { userid: item.user_id, usertype: this.user }
+      });
     }
   }
 };

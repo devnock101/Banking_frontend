@@ -17,9 +17,22 @@ export default {
   mounted: function() {
     this.getDetails();
   },
+  props: {
+    userId: {
+      type: String,
+      required: true
+    }
+  },
   data: function() {
     return {
       isBusy: false,
+      userid: this.userId,
+      items: {
+        Name: "Abhinav Mishra",
+        Customer_Account_Id: "555 77 854",
+        SSN: "374 234 2855",
+        Account_Balance: "$1200"
+      },
       details: [
         {
           Name: "Abhinav Mishra",
@@ -32,17 +45,21 @@ export default {
   },
   methods: {
     getDetails: function() {
-      let userDetails = process.env.VUE_APP_USER_INFO;
-      axios.get(accountList).then(function(response) {
-        this.items = response.body.users;
+      this.toggleBusy();
+      let userDetails = process.env.VUE_APP_USER + this.userid;
+      this.axios.get(userDetails).then(function(response) {
+        this.items = response.body.user;
       });
+      this.details = [];
+      this.details.push(this.items);
+      this.toggleBusy();
     },
     toggleBusy: function() {
       this.isBusy = !this.isBusy;
     },
     accClose: function(id) {
       let closeUrl = process.env.VUE_APP_USER + id;
-      axios
+      this.axios
         .delete(closeUrl)
         .then(function(response) {
           if (response.status === 200 || response.status === 204) {

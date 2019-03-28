@@ -1,30 +1,16 @@
 <template>
-  <div class="transreq container">
-    <b-card
-      class="users"
-      header="Transactions Requests"
-      header-bg-variant="dark"
-      header-text-variant="light"
-    >
-      <b-button class="btn" variant="info">Create Transaction</b-button>
+  <div class="log container">
+    <b-card class="users" header="System Log" header-bg-variant="dark" header-text-variant="light">
       <b-table
-        ref="table"
+        class="table"
         striped
-        hover
         outlined
+        hover
         responsive
         :per-page="perPage"
         :current-page="currentPage"
-        :fields="updateField()"
-        :items="transItems"
-      >
-        <template slot="Approve" slot-scope="data">
-          <b-button variant="info" @click="transApprove(data.index)">Approve</b-button>
-        </template>
-        <template slot="Decline" slot-scope="data">
-          <b-button variant="info" @click="transDecline(data.index)">Decline</b-button>
-        </template>
-      </b-table>
+        :items="logData"
+      />
       <b-row>
         <b-col md="6" class="my-1">
           <b-pagination
@@ -41,22 +27,28 @@
 
 <script>
 export default {
-  name: "transreq",
+  name: "log",
   mounted: function() {
-    this.getTransactions();
+    this.getLog();
+  },
+  props: {
+    userid: {
+      type: String,
+      required: true
+    }
   },
   data: function() {
     return {
       isBusy: false,
+      id: this.userid,
       perPage: 5,
       currentPage: 1,
       totalRows: "",
-      transItems: [
+      logData: [
         {
           isActive: true,
           id: 1,
           age: 40,
-          amount: 300,
           first_name: "Dickerson",
           last_name: "Macdonald"
         },
@@ -64,7 +56,6 @@ export default {
           isActive: false,
           id: 2,
           age: 21,
-          amount: 1300,
           first_name: "Larsen",
           last_name: "Shaw"
         },
@@ -72,7 +63,6 @@ export default {
           isActive: false,
           id: 3,
           age: 89,
-          amount: 300,
           first_name: "Geneva",
           last_name: "Wilson"
         },
@@ -80,7 +70,6 @@ export default {
           isActive: true,
           id: 4,
           age: 38,
-          amount: 300,
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -88,7 +77,6 @@ export default {
           isActive: true,
           id: 5,
           age: 38,
-          amount: 1300,
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -96,7 +84,6 @@ export default {
           isActive: true,
           id: 6,
           age: 38,
-          amount: 300,
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -104,7 +91,6 @@ export default {
           isActive: true,
           id: 7,
           age: 38,
-          amount: 1300,
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -112,7 +98,6 @@ export default {
           isActive: true,
           id: 8,
           age: 38,
-          amount: 300,
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -120,7 +105,6 @@ export default {
           isActive: true,
           id: 9,
           age: 38,
-          amount: 1300,
           first_name: "Jami",
           last_name: "Carney"
         }
@@ -128,57 +112,44 @@ export default {
     };
   },
   methods: {
-    getTransactions: function() {
+    getLog: function() {
       this.toggleBusy();
-      let transList = process.env.VUE_APP_TRANS_REQUEST_LIST + "PENDING";
-      this.axios.get(transList).then(function(response) {
-        this.transItems = response.body.transactions;
+      let logUrl =
+        process.env.VUE_APP_USER +
+        this.id +
+        process.env.VUE_APP_USER_LOG +
+        "50";
+      this.axios.get(logUrl).then(function(response) {
+        this.logData = response.body.log;
       });
-      this.totalRows = this.transItems.length;
+      this.totalRows = this.logData.length;
       this.toggleBusy();
     },
     toggleBusy: function() {
       this.isBusy = !this.isBusy;
-    },
-    updateField: function() {
-      var field = Object.keys(this.transItems[0]);
-      field.push("Approve", "Decline");
-      return field;
-    },
-    transApprove: function(i) {
-      var id = this.transItems.splice(i, 1).id;
-      let approve = process.env.VUE_APP_TRANS_REQUEST_APPROVE + id;
-      this.axios.put(approve).then(function() {});
-      this.$refs.table.refresh();
-    },
-    transDecline: function(i) {
-      var id = this.transItems.splice(i, 1).id;
-      let decline = process.env.VUE_APP_TRANS_REQUEST_DECLINE + id;
-      this.axios.put(decline).then(function() {});
-      this.$refs.table.refresh();
     }
-    // ,criticalFilter: function() {}
   }
 };
 </script>
 
 <style scoped>
-.users {
-  margin: 5% auto;
-}
 .accounts {
   max-height: 25%;
   overflow: scroll;
 }
+
 .users {
   margin: 5% auto;
 }
+
 .btn {
   margin: 0px 10px 20px;
 }
+
 table.b-table[aria-busy="false"] {
   opacity: 1;
 }
+
 table.b-table[aria-busy="true"] {
   opacity: 0.6;
 }

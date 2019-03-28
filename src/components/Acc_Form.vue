@@ -1,5 +1,5 @@
 <template>
-  <div class="acc_form">
+  <div class="acc_form container">
     <b-form-group>
       <b-form @submit.prevent>
         <b-form-group inline>
