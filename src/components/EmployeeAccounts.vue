@@ -6,7 +6,9 @@
       header-bg-variant="dark"
       header-text-variant="light"
     >
-      <b-button class="btn" variant="info">Create New User</b-button>
+      <b-link :to="{name: 'create', params: { action: this.action, user: this.user } }">
+        <b-button class="btn" variant="info">Add Employee</b-button>
+      </b-link>
       <b-table
         ref="table"
         class="table"
@@ -52,6 +54,7 @@ export default {
   data: function() {
     return {
       isBusy: false,
+      action: "internal",
       user: "TIER3",
       perPage: 5,
       currentPage: 1,

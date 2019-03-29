@@ -3,7 +3,7 @@
     <b-card
       class="loginCard"
       header="Login Form"
-      header-bg-variant="info"
+      header-bg-variant="dark"
       header-text-variant="white"
       header-tag="header"
     >
@@ -34,37 +34,18 @@ export default {
   data: function() {
     return {
       username: "",
-      password: "",
-      reponse: {}
+      password: ""
     };
   },
   methods: {
     login: function() {
-      //let loginUrl = process.env.VUE_APP_LOGIN_IN;
-      // this.axios
-      //   .post(loginUrl, {
-      //     username: this.user,
-      //     password: this.pass
-      //   })
-      //   .then(function() {});
-
-      // this.axios(loginUrl, {
-      //   method: "POST",
-      //   mode: "no-cors",
-      //   data: {
-      //     username: this.user,
-      //     password: this.pass
-      //   },
-      //   headers: {
-      //     "Access-Control-Allow-Origin": "*",
-      //     "Content-Type": "application/x-www-form-urlencoded"
-      //   },
-      //   withCredentials: true,
-      //   credentials: "same-origin"
-      // }).then(function(response) {
-      //   this.response = response;
-      // });
-
+      let loginUrl = process.env.VUE_APP_LOGIN_IN;
+      this.axios
+        .post(loginUrl, {
+          username: this.user,
+          password: this.pass
+        })
+        .then(function() {});
       this.$router.push({ name: "user" });
     }
   }

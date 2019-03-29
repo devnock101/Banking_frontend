@@ -23,15 +23,14 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/User.vue")
     },
     {
-      path: "/:id/:action",
-      name: "edit",
-      component: () => import("./views/Form.vue")
+      path: "/form/:action",
+      name: "create",
+      component: () => import("./views/AppForm.vue")
     },
     {
       path: "/user/account",
       name: "account",
-      component: () => import("./views/Account.vue"),
-      props: true
+      component: () => import("./views/Account.vue")
     }
   ]
 });

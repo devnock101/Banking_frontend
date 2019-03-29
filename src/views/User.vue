@@ -31,8 +31,8 @@ export default {
   data: function() {
     return {
       userObj: {
-        usertypeid: "TIER1",
-        // usertypeid: "TIER2",
+        // usertypeid: "TIER1",
+        usertypeid: "TIER2",
         // usertypeid: "TIER3",
         // usertypeid: "CUSTOMER",
         // usertypeid: "MERCHANT",

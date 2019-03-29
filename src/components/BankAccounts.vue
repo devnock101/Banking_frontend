@@ -7,8 +7,10 @@
       header-text-variant="light"
     >
       <div v-if="this.user === 'TIER2'">
-        <b-button class="btn" variant="info">Create New User</b-button>
-        <b-button class="btn" variant="info">Create New Bank Account</b-button>
+        <b-link :to="{name: 'create', params: { action: this.action, user: this.user } }">
+          <b-button class="btn" variant="info">Add User</b-button>
+        </b-link>
+        <b-button class="btn" variant="info">Open Bank Account</b-button>
       </div>
       <b-table
         ref="table"
@@ -24,9 +26,7 @@
         @row-clicked="loadAccount"
       >
         <template slot="Modify" slot-scope="data">
-          <b-link :to="{name: 'edit', params: {id: data.item.id, action: 'modify'}}">
-            <b-button variant="info">Modify</b-button>
-          </b-link>
+          <b-button variant="info">Modify</b-button>
         </template>
         <template slot="Close" slot-scope="data">
           <b-button variant="info" @click="accClose(data.index)">Close</b-button>
@@ -52,6 +52,7 @@ export default {
   mounted: function() {
     this.getUrl();
     this.getUsers();
+    this.getAction();
   },
   props: {
     userType: {
@@ -68,6 +69,7 @@ export default {
       accountUrl: "",
       id: this.userId,
       user: this.userType,
+      action: null,
       perPage: 5,
       currentPage: 1,
       totalRows: "",
@@ -153,6 +155,11 @@ export default {
       });
       this.totalRows = this.accounts.length;
       this.toggleBusy();
+    },
+    getAction: function() {
+      if (this.user === "TIER2") {
+        this.action = "external";
+      }
     },
     toggleBusy: function() {
       this.isBusy = !this.isBusy;
