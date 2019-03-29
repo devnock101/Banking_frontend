@@ -64,6 +64,7 @@ export default {
           isActive: true,
           user_id: "1",
           age: 40,
+          usertypeid: "TIER2",
           first_name: "Dickerson",
           last_name: "Macdonald"
         },
@@ -71,6 +72,7 @@ export default {
           isActive: false,
           user_id: "2",
           age: 21,
+          usertypeid: "TIER1",
           first_name: "Larsen",
           last_name: "Shaw"
         },
@@ -78,6 +80,7 @@ export default {
           isActive: false,
           user_id: "3",
           age: 89,
+          usertypeid: "TIER1",
           first_name: "Geneva",
           last_name: "Wilson"
         },
@@ -85,6 +88,7 @@ export default {
           isActive: true,
           user_id: "4",
           age: 38,
+          usertypeid: "TIER2",
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -92,6 +96,7 @@ export default {
           isActive: true,
           user_id: "5",
           age: 38,
+          usertypeid: "TIER1",
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -99,6 +104,7 @@ export default {
           isActive: true,
           user_id: "6",
           age: 38,
+          usertypeid: "TIER1",
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -106,6 +112,7 @@ export default {
           isActive: true,
           user_id: "7",
           age: 38,
+          usertypeid: "TIER2",
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -113,6 +120,7 @@ export default {
           isActive: true,
           user_id: "8",
           age: 38,
+          usertypeid: "TIER1",
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -120,6 +128,7 @@ export default {
           isActive: true,
           user_id: "9",
           age: 38,
+          usertypeid: "TIER1",
           first_name: "Jami",
           last_name: "Carney"
         }

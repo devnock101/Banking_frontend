@@ -32,9 +32,9 @@ export default {
     return {
       userObj: {
         // usertypeid: "TIER1",
-        usertypeid: "TIER2",
+        // usertypeid: "TIER2",
         // usertypeid: "TIER3",
-        // usertypeid: "CUSTOMER",
+        usertypeid: "CUSTOMER",
         // usertypeid: "MERCHANT",
         userid: "1234"
       }

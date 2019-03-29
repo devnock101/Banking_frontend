@@ -30,7 +30,8 @@ export default new Router({
     {
       path: "/user/account",
       name: "account",
-      component: () => import("./views/Account.vue")
+      component: () => import("./views/Account.vue"),
+      props: true
     }
   ]
 });

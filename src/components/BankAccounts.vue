@@ -78,6 +78,7 @@ export default {
           isActive: true,
           user_id: "1",
           age: 40,
+          usertypeid: "CUSTOMER",
           first_name: "Dickerson",
           last_name: "Macdonald"
         },
@@ -85,6 +86,7 @@ export default {
           isActive: false,
           user_id: "2",
           age: 21,
+          usertypeid: "MERCHANT",
           first_name: "Larsen",
           last_name: "Shaw"
         },
@@ -92,6 +94,7 @@ export default {
           isActive: false,
           user_id: "3",
           age: 89,
+          usertypeid: "CUSTOMER",
           first_name: "Geneva",
           last_name: "Wilson"
         },
@@ -99,6 +102,7 @@ export default {
           isActive: true,
           user_id: "4",
           age: 38,
+          usertypeid: "MERCHANT",
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -106,6 +110,7 @@ export default {
           isActive: true,
           user_id: "5",
           age: 38,
+          usertypeid: "CUSTOMER",
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -113,6 +118,7 @@ export default {
           isActive: true,
           user_id: "6",
           age: 38,
+          usertypeid: "CUSTOMER",
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -120,6 +126,7 @@ export default {
           isActive: true,
           user_id: "7",
           age: 38,
+          usertypeid: "MERCHANT",
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -127,6 +134,7 @@ export default {
           isActive: true,
           user_id: "8",
           age: 38,
+          usertypeid: "CUSTOMER",
           first_name: "Jami",
           last_name: "Carney"
         },
@@ -134,6 +142,7 @@ export default {
           isActive: true,
           user_id: "9",
           age: 38,
+          usertypeid: "MERCHANT",
           first_name: "Jami",
           last_name: "Carney"
         }
@@ -143,9 +152,10 @@ export default {
   methods: {
     getUrl: function() {
       if (this.user === "TIER1" || this.user === "TIER2") {
-        this.accountUrl = process.env.VUE_APP_ACCOUNT_LIST;
+        this.accountUrl = process.env.VUE_APP_ACCOUNT_LIST_INTERNAL;
       } else {
-        this.accountUrl = process.env.VUE_APP_ACCOUNT_LIST + "/" + this.userId;
+        this.accountUrl =
+          process.env.VUE_APP_ACCOUNT_LIST_EXTERNAL + this.userId;
       }
     },
     getUsers: function() {

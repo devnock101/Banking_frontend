@@ -1,15 +1,8 @@
 <template>
-  <div class="hello container">
-    <div class="form container">
+  <div class="userform container">
+    <div class="user container">
       <b-card header="Add User" header-bg-variant="dark" header-text-variant="white">
         <b-form @submit.prevent="checkForm">
-          <b-input
-            id="uid"
-            class="input"
-            type="text"
-            v-model="this.userObj.userid"
-            placeholder="User Id"
-          />
           <b-input
             id="fname"
             class="input"
@@ -79,7 +72,7 @@
             class="input"
             placeholder=" Date of Birth"
           />
-          <b-dropdown id="ddown1" text="User Type" class="m-md-2" v-model="this.userObj.userType">
+          <b-dropdown id="ddown1" text="User Type" class="m-md-2" v-model="this.userObj.usertypeid">
             <b-dropdown-item>{{this.userTypes[0]}}</b-dropdown-item>
             <b-dropdown-item>{{this.userTypes[1]}}</b-dropdown-item>
           </b-dropdown>
@@ -103,17 +96,15 @@ export default {
     return {
       userTypes: this.users,
       userObj: {
-        userid: null,
-        fname: null,
-        lname: null,
         user: null,
         pass: null,
-        pass2: null,
+        fname: null,
+        lname: null,
         email: null,
         phone: null,
         phone2: null,
         dob: null,
-        userType: null
+        usertypeid: null
       }
     };
   },
