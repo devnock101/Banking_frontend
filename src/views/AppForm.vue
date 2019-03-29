@@ -11,7 +11,7 @@ import User from "@/components/UserForm.vue";
 
 export default {
   name: "formvue",
-  mounted: function() {
+  created: function() {
     this.userList(this.userType);
   },
   components: {
@@ -20,7 +20,7 @@ export default {
   },
   data: function() {
     return {
-      act: this.$route.params.action,
+      action: this.$route.params.action,
       userType: this.$route.params.user
     };
   },

@@ -48,7 +48,7 @@
 <script>
 export default {
   name: "user_accounts",
-  mounted: function() {
+  created: function() {
     this.getUsers();
   },
   data: function() {
@@ -139,10 +139,11 @@ export default {
     getUsers: function() {
       this.toggleBusy();
       let accountList = process.env.VUE_APP_EMPLY_LIST;
-      this.axios.get(accountList).then(function(response) {
+      this.axios.get(accountList).then(response => {
         this.accounts = response.body.users;
       });
       this.totalRows = this.accounts.length;
+      this.$refs.table.refresh();
       this.toggleBusy();
     },
     toggleBusy: function() {

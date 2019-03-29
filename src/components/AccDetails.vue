@@ -14,7 +14,7 @@
 <script>
 export default {
   name: "acc_details",
-  mounted: function() {
+  created: function() {
     this.getDetails();
   },
   props: {
@@ -47,7 +47,7 @@ export default {
     getDetails: function() {
       this.toggleBusy();
       let userDetails = process.env.VUE_APP_USER + this.userid;
-      this.axios.get(userDetails).then(function(response) {
+      this.axios.get(userDetails).then(response => {
         this.items = response.body.user;
       });
       this.details = [];
@@ -59,16 +59,7 @@ export default {
     },
     accClose: function(id) {
       let closeUrl = process.env.VUE_APP_USER + id;
-      this.axios
-        .delete(closeUrl)
-        .then(function(response) {
-          if (response.status === 200 || response.status === 204) {
-            console.log("Success!");
-          }
-        })
-        .catch(function(error) {
-          this.error = error;
-        });
+      this.axios.delete(closeUrl).then(function() {});
     }
   }
 };

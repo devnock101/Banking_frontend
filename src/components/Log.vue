@@ -28,7 +28,7 @@
 <script>
 export default {
   name: "log",
-  mounted: function() {
+  created: function() {
     this.getLog();
   },
   props: {
@@ -119,7 +119,7 @@ export default {
         this.id +
         process.env.VUE_APP_USER_LOG +
         "50";
-      this.axios.get(logUrl).then(function(response) {
+      this.axios.get(logUrl).then(response => {
         this.logData = response.body.log;
       });
       this.totalRows = this.logData.length;

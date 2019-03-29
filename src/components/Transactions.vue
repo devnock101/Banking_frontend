@@ -7,6 +7,7 @@
       header-text-variant="light"
     >
       <b-table
+        ref="table"
         class="table"
         striped
         outlined
@@ -33,7 +34,7 @@
 <script>
 export default {
   name: "transactions",
-  mounted: function() {
+  created: function() {
     this.getTransactions();
   },
   data: function() {
@@ -113,10 +114,11 @@ export default {
     getTransactions: function() {
       this.toggleBusy();
       let transList = process.env.VUE_APP_TRANS_LIST;
-      this.axios.get(transList).then(function(response) {
+      this.axios.get(transList).then(response => {
         this.transactions = response.body.transactions;
       });
       this.totalRows = this.transaction.length;
+      this.$refs.table.refresh();
       this.toggleBusy();
     },
     toggleBusy: function() {

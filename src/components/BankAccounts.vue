@@ -49,7 +49,7 @@
 <script>
 export default {
   name: "bank_accounts",
-  mounted: function() {
+  created: function() {
     this.getUrl();
     this.getUsers();
     this.getAction();
@@ -160,10 +160,11 @@ export default {
     },
     getUsers: function() {
       this.toggleBusy();
-      this.axios.get(this.accountUrl).then(function(response) {
-        this.accounts = response.body.users;
+      this.axios.get(this.accountUrl).then(response => {
+        this.accounts = response.data;
       });
       this.totalRows = this.accounts.length;
+      this.$refs.table.refresh();
       this.toggleBusy();
     },
     getAction: function() {

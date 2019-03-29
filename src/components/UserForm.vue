@@ -65,12 +65,59 @@
             placeholder="Alternate Phone"
           />
           <b-input
-            v-validate="'date_format:dd/MM/yyyy|date_between:10/09/1960,20/04/2018'"
             name="date_between_field"
             type="date"
             v-model="this.userObj.dob"
             class="input"
             placeholder=" Date of Birth"
+          />
+          <b-input
+            id="street"
+            v-model="this.userObj.address.street"
+            type="text"
+            class="input"
+            name="street"
+            placeholder="Street Address"
+          />
+          <b-input
+            id="street2"
+            v-model="this.userObj.address.street2"
+            type="text"
+            class="input"
+            name="street2"
+            placeholder="Street Address (Optional)"
+          />
+          <b-input
+            id="city"
+            v-model="this.userObj.address.city"
+            type="text"
+            class="input"
+            name="city"
+            placeholder="Town/City"
+          />
+          <b-input
+            id="state"
+            v-model="this.userObj.address.state"
+            type="text"
+            class="input"
+            name="state"
+            placeholder="State"
+          />
+          <b-input
+            id="country"
+            v-model="this.userObj.address.country"
+            type="text"
+            class="input"
+            name="country"
+            placeholder="Country"
+          />
+          <b-input
+            id="zipcode"
+            v-model="this.userObj.address.zipcode"
+            type="number"
+            class="input"
+            name="street"
+            placeholder="Zip Code"
           />
           <b-dropdown id="ddown1" text="User Type" class="m-md-2" v-model="this.userObj.usertypeid">
             <b-dropdown-item>{{this.userTypes[0]}}</b-dropdown-item>
@@ -104,7 +151,15 @@ export default {
         phone: null,
         phone2: null,
         dob: null,
-        usertypeid: null
+        usertypeid: null,
+        address: {
+          street: null,
+          street2: null,
+          city: null,
+          state: null,
+          country: null,
+          zipcode: null
+        }
       }
     };
   },
@@ -153,9 +208,9 @@ export default {
 </script>
 
 <style scoped>
-.hello {
+.userform {
   width: 30%;
-  margin: 10% auto;
+  margin: 3% auto;
 }
 .input {
   margin: 10px auto;

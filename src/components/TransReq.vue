@@ -42,7 +42,7 @@
 <script>
 export default {
   name: "transreq",
-  mounted: function() {
+  created: function() {
     this.getTransactions();
   },
   data: function() {
@@ -131,10 +131,11 @@ export default {
     getTransactions: function() {
       this.toggleBusy();
       let transList = process.env.VUE_APP_TRANS_REQUEST_LIST + "PENDING";
-      this.axios.get(transList).then(function(response) {
+      this.axios.get(transList).then(response => {
         this.transItems = response.body.transactions;
       });
       this.totalRows = this.transItems.length;
+      this.$refs.table.refresh();
       this.toggleBusy();
     },
     toggleBusy: function() {
