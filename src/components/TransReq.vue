@@ -2,53 +2,78 @@
   <div class="transreq container">
     <b-card
       class="users"
-      header="Transactions Requests"
+      header="Transactions"
       header-bg-variant="dark"
       header-text-variant="light"
+      no-body
     >
-      <b-button class="btn" variant="info">Create Transaction</b-button>
-      <b-table
-        ref="table"
-        striped
-        hover
-        outlined
-        responsive
-        :per-page="perPage"
-        :current-page="currentPage"
-        :fields="updateField()"
-        :items="transItems"
-      >
-        <template slot="Approve" slot-scope="data">
-          <b-button variant="info" @click="transApprove(data.index)">Approve</b-button>
-        </template>
-        <template slot="Decline" slot-scope="data">
-          <b-button variant="info" @click="transDecline(data.index)">Decline</b-button>
-        </template>
-      </b-table>
-      <b-row>
-        <b-col md="6" class="my-1">
-          <b-pagination
-            :total-rows="totalRows"
+      <b-tabs card pills content-class="mt-3">
+        <b-tab title="View Requests" active>
+          <b-table
+            ref="table"
+            striped
+            hover
+            outlined
+            responsive
             :per-page="perPage"
-            v-model="currentPage"
-            class="my-0"
-          />
-        </b-col>
-      </b-row>
+            :current-page="currentPage"
+            :fields="updateField()"
+            :items="transItems"
+          >
+            <template slot="Approve" slot-scope="data">
+              <b-button variant="primary" @click="transApprove(data.index)">Approve</b-button>
+            </template>
+            <template slot="Decline" slot-scope="data">
+              <b-button variant="primary" @click="transDecline(data.index)">Decline</b-button>
+            </template>
+          </b-table>
+          <b-row>
+            <b-col md="6" class="my-1">
+              <b-pagination
+                :total-rows="totalRows"
+                :per-page="perPage"
+                v-model="currentPage"
+                class="my-0"
+              />
+            </b-col>
+          </b-row>
+        </b-tab>
+        <b-tab title="Create Transaction">
+          <Trans v-if="this.userTest()"/>
+        </b-tab>
+      </b-tabs>
     </b-card>
   </div>
 </template>
 
 <script>
+import Trans from "@/components/TransForm.vue";
+
 export default {
   name: "transreq",
-  created: function() {
+  mounted: function() {
     this.getTransactions();
+  },
+  components: {
+    Trans
+  },
+  props: {
+    userType: {
+      type: String,
+      required: true
+    },
+    userId: {
+      type: String
+    }
   },
   data: function() {
     return {
       isBusy: false,
-      perPage: 5,
+      userid: null,
+      action: "transaction",
+      user: this.userType,
+      id: this.userId,
+      perPage: 8,
       currentPage: 1,
       totalRows: "",
       transItems: [
@@ -157,8 +182,15 @@ export default {
       let decline = process.env.VUE_APP_TRANS_REQUEST_DECLINE + id;
       this.axios.put(decline).then(function() {});
       this.$refs.table.refresh();
+    },
+    userTest: function() {
+      return (
+        this.user === "TIER1" ||
+        this.user === "TIER2" ||
+        this.user === "CUSTOMER" ||
+        this.user === "MERCHANT"
+      );
     }
-    // ,criticalFilter: function() {}
   }
 };
 </script>

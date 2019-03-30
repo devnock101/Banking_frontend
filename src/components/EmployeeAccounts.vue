@@ -5,57 +5,70 @@
       header="Employee Accounts"
       header-bg-variant="dark"
       header-text-variant="light"
+      no-body
     >
-      <b-link :to="{name: 'create', params: { action: this.action, user: this.user } }">
-        <b-button class="btn" variant="info">Add Employee</b-button>
-      </b-link>
-      <b-table
-        ref="table"
-        class="table"
-        striped
-        outlined
-        hover
-        responsive
-        :current-page="currentPage"
-        :per-page="perPage"
-        :fields="updateField()"
-        :items="accounts"
-        @row-clicked="loadAccount"
-      >
-        <template slot="Modify" slot-scope="data">
-          <b-link :to="{name: 'edit', params: {id: data.item.id, action: 'modify'}}">
-            <b-button variant="info">Modify</b-button>
-          </b-link>
-        </template>
-        <template slot="Delete" slot-scope="data">
-          <b-button variant="info" @click="accDelete(data.index)">Delete</b-button>
-        </template>
-      </b-table>
-      <b-row>
-        <b-col md="6" class="my-1">
-          <b-pagination
-            :total-rows="totalRows"
+      <b-tabs card pills content-class="mt-3">
+        <b-tab title="View Accounts" active>
+          <b-table
+            ref="table"
+            class="table"
+            striped
+            outlined
+            hover
+            responsive
+            :current-page="currentPage"
             :per-page="perPage"
-            v-model="currentPage"
-            class="my-0"
-          />
-        </b-col>
-      </b-row>
+            :fields="updateField()"
+            :items="accounts"
+            @row-clicked="loadAccount"
+          >
+            <template slot="Modify" slot-scope="data">
+              <b-link
+                :to="{name: 'create', params: { action: 'employee_mod', user: 'TIER3', id: data.item.userid} }"
+              >
+                <b-button variant="primary">Modify</b-button>
+              </b-link>
+            </template>
+            <template slot="Delete" slot-scope="data">
+              <b-button variant="primary" @click="accDelete(data.index)">Delete</b-button>
+            </template>
+          </b-table>
+          <b-row>
+            <b-col md="6" class="my-1">
+              <b-pagination
+                :total-rows="totalRows"
+                :per-page="perPage"
+                v-model="currentPage"
+                class="my-0"
+              />
+            </b-col>
+          </b-row>
+        </b-tab>
+        <b-tab title="Add Employee">
+          <User :users="this.users" :id="null"/>
+        </b-tab>
+      </b-tabs>
     </b-card>
   </div>
 </template>
 
 <script>
+import User from "@/components/UserForm.vue";
+
 export default {
   name: "user_accounts",
-  created: function() {
+  mounted: function() {
     this.getUsers();
+  },
+  components: {
+    User
   },
   data: function() {
     return {
       isBusy: false,
-      action: "internal",
+      action: "employee",
       user: "TIER3",
+      users: ["TIER1", "TIER2"],
       perPage: 5,
       currentPage: 1,
       totalRows: "",

@@ -19,7 +19,7 @@ export default new Router({
       component: () => import("./views/User.vue")
     },
     {
-      path: "/form/:action",
+      path: "/create/:action",
       name: "create",
       component: () => import("./views/AppForm.vue")
     },

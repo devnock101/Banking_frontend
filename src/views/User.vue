@@ -1,19 +1,38 @@
 <template>
   <div>
-    <AccDetails
-      :userId="this.userObj.userid"
-      v-if="this.userObj.usertypeid === 'CUSTOMER' || this.userObj.usertypeid === 'MERCHANT'"
-    />
-    <BankAccounts
-      :userType="this.userObj.usertypeid"
-      :userId="this.userObj.userid"
-      v-if="this.userObj.usertypeid === 'TIER1' || 
+    <b-card no-body>
+      <b-tabs card pills content-class="mt-3">
+        <b-tab
+          title="Details"
+          v-if="this.userObj.usertypeid === 'CUSTOMER' || this.userObj.usertypeid === 'MERCHANT'"
+        >
+          <AccDetails :userId="this.userObj.userid"/>
+        </b-tab>
+        <b-tab
+          title="Accounts"
+          v-if="this.userObj.usertypeid === 'TIER1' || 
                         this.userObj.usertypeid === 'TIER2' || 
                         this.userObj.usertypeid === 'CUSTOMER' || 
                         this.userObj.usertypeid === 'MERCHANT'"
-    />
-    <TransReq v-if="this.userObj.usertypeid === 'TIER1' || this.userObj.usertypeid === 'TIER2'"/>
-    <EmplyAccounts v-if="this.userObj.usertypeid === 'TIER3'"/>
+        >
+          <BankAccounts :userType="this.userObj.usertypeid" :userId="this.userObj.userid"/>
+        </b-tab>
+        <b-tab
+          title="Transactions"
+          v-if="this.userObj.usertypeid === 'TIER1' || this.userObj.usertypeid === 'TIER2'"
+        >
+          <TransReq :userType="this.userObj.usertypeid" :userId="this.userObj.userid"/>
+        </b-tab>
+        <b-tab title="Accounts" v-if="this.userObj.usertypeid === 'TIER3'">
+          <EmplyAccounts/>
+        </b-tab>
+        <b-tab
+          title="Support"
+          v-if="this.userObj.usertypeid === 'CUSTOMER' || this.userObj.usertypeid === 'MERCHANT'"
+        ></b-tab>
+        <b-tab title="Logout" no-body></b-tab>
+      </b-tabs>
+    </b-card>
   </div>
 </template>
 
@@ -22,18 +41,19 @@ import AccDetails from "@/components/AccDetails.vue";
 import EmplyAccounts from "@/components/EmployeeAccounts.vue";
 import BankAccounts from "@/components/BankAccounts.vue";
 import TransReq from "@/components/TransReq.vue";
+import Logout from "@/components/Logout.vue";
 
 export default {
   name: "user",
-  created: function() {
+  mounted: function() {
     this.getUser();
   },
   data: function() {
     return {
       userObj: {
         // usertypeid: "TIER1",
-        usertypeid: "TIER2",
-        // usertypeid: "TIER3",
+        // usertypeid: "TIER2",
+        usertypeid: "TIER3",
         // usertypeid: "CUSTOMER",
         // usertypeid: "MERCHANT",
         userid: "1234"
@@ -44,7 +64,8 @@ export default {
     AccDetails,
     EmplyAccounts,
     BankAccounts,
-    TransReq
+    TransReq,
+    Logout
   },
   methods: {
     getUser: function() {

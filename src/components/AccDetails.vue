@@ -14,7 +14,7 @@
 <script>
 export default {
   name: "acc_details",
-  created: function() {
+  mounted: function() {
     this.getDetails();
   },
   props: {

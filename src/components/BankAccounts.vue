@@ -5,54 +5,121 @@
       header="Bank Accounts"
       header-bg-variant="dark"
       header-text-variant="light"
+      no-body
     >
-      <div v-if="this.user === 'TIER2'">
-        <b-link :to="{name: 'create', params: { action: this.action, user: this.user } }">
-          <b-button class="btn" variant="info">Add User</b-button>
-        </b-link>
-        <b-button class="btn" variant="info">Open Bank Account</b-button>
-      </div>
-      <b-table
-        ref="table"
-        class="table"
-        striped
-        outlined
-        hover
-        responsive
-        :current-page="currentPage"
-        :per-page="perPage"
-        :fields="updateField()"
-        :items="accounts"
-        @row-clicked="loadAccount"
-      >
-        <template slot="Modify" slot-scope="data">
-          <b-button variant="info">Modify</b-button>
-        </template>
-        <template slot="Close" slot-scope="data">
-          <b-button variant="info" @click="accClose(data.index)">Close</b-button>
-        </template>
-      </b-table>
-      <b-row>
-        <b-col md="6" class="my-1">
-          <b-pagination
-            :total-rows="totalRows"
+      <b-tabs card pills content-class="mt-3">
+        <b-tab title="View Accounts" active>
+          <!-- <div v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
+            <b-link
+              :to="{name: 'create', params: { action: this.action_transaction, user: this.user, id: this.userid } }"
+            >
+              <b-button class="btn" variant="info">Transaction</b-button>
+            </b-link>
+            <b-link
+              :to="{name: 'create', params: { action: this.action_account, user: this.user, id: this.userid } }"
+            >
+              <b-button class="btn" variant="info">Open Bank Account</b-button>
+            </b-link>
+          </div>-->
+          <b-table
+            ref="table"
+            class="table"
+            striped
+            hover
+            outlined
+            responsive
+            :current-page="currentPage"
             :per-page="perPage"
-            v-model="currentPage"
-            class="my-0"
-          />
-        </b-col>
-      </b-row>
+            :fields="updateField()"
+            :items="accounts"
+            @row-clicked="loadAccount"
+          >
+            <template slot="Modify" slot-scope="data">
+              <b-link
+                :to="{name: 'create', params: { action: 'user_mod', user: 'TIER2', id: data.item.userid} }"
+              >
+                <b-button variant="primary">Modify</b-button>
+              </b-link>
+            </template>
+            <template slot="Close" slot-scope="data">
+              <b-button variant="primary" @click="accClose(data.index)">Close</b-button>
+            </template>
+
+            <!-- <template slot="View" slot-scope="row">
+              <b-button
+                variant="primary"
+                @click="row.toggleDetails"
+              >{{ row.detailsShowing ? 'Hide' : 'Show'}} Details</b-button>
+            </template>
+
+            <template slot="row-details" slot-scope="row">
+              <b-card>
+                <AccDetails :userId="row.item.userid"/>
+                <TransList/>
+              </b-card>
+            </template>-->
+          </b-table>
+          <b-row>
+            <b-col md="6" class="my-1">
+              <b-pagination
+                :total-rows="totalRows"
+                :per-page="perPage"
+                v-model="currentPage"
+                class="my-0"
+              />
+            </b-col>
+          </b-row>
+        </b-tab>
+        <b-tab title="Add User" v-if="this.user === 'TIER2'">
+          <User :users="this.users"/>
+        </b-tab>
+        <b-tab title="Add Bank Account" v-if="this.user === 'TIER2'">
+          <Account/>
+        </b-tab>
+        <b-tab title="New Bank Account" v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
+          <Account :id="this.userId"/>
+        </b-tab>
+        <b-tab title="Move Funds" v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
+          <Move :userId="this.userId" :action="this.move"/>
+        </b-tab>
+        <b-tab title="Credit Funds" v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
+          <Move :userId="this.userId" :action="this.credit"/>
+        </b-tab>
+        <b-tab title="Debit Funds" v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
+          <Move :userId="this.userId" :action="this.debit"/>
+        </b-tab>
+        <b-tab title="Transfer Funds" v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
+          <Move :userId="this.userId" :action="this.transfer"/>
+        </b-tab>
+      </b-tabs>
     </b-card>
   </div>
 </template>
 
 <script>
+import User from "@/components/UserForm.vue";
+import Account from "@/components/BankForm.vue";
+import AccDetails from "@/components/AccDetails.vue";
+import TransList from "@/components/Transactions.vue";
+import Trans from "@/components/TransForm.vue";
+import Move from "@/components/TransFund.vue";
+
 export default {
   name: "bank_accounts",
   created: function() {
     this.getUrl();
     this.getUsers();
+  },
+  mounted: function() {
     this.getAction();
+  },
+  components: {
+    User,
+    Account,
+    AccDetails,
+    TransList,
+    Trans,
+    Move
   },
   props: {
     userType: {
@@ -69,14 +136,23 @@ export default {
       accountUrl: "",
       id: this.userId,
       user: this.userType,
-      action: null,
-      perPage: 5,
+      userid: null,
+      users: ["CUSTOMER", "MERCHANT"],
+      action_user_new: null,
+      action_user_mod: null,
+      action_account: null,
+      move: "move",
+      transfer: "transfer",
+      credit: "credit",
+      debit: "debit",
+      action_transaction: null,
+      perPage: 8,
       currentPage: 1,
-      totalRows: "",
+      totalRows: 1,
       accounts: [
         {
           isActive: true,
-          user_id: "1",
+          userid: "1",
           age: 40,
           usertypeid: "CUSTOMER",
           first_name: "Dickerson",
@@ -84,7 +160,7 @@ export default {
         },
         {
           isActive: false,
-          user_id: "2",
+          userid: "2",
           age: 21,
           usertypeid: "MERCHANT",
           first_name: "Larsen",
@@ -92,7 +168,7 @@ export default {
         },
         {
           isActive: false,
-          user_id: "3",
+          userid: "3",
           age: 89,
           usertypeid: "CUSTOMER",
           first_name: "Geneva",
@@ -100,7 +176,7 @@ export default {
         },
         {
           isActive: true,
-          user_id: "4",
+          userid: "4",
           age: 38,
           usertypeid: "MERCHANT",
           first_name: "Jami",
@@ -108,7 +184,7 @@ export default {
         },
         {
           isActive: true,
-          user_id: "5",
+          userid: "5",
           age: 38,
           usertypeid: "CUSTOMER",
           first_name: "Jami",
@@ -116,7 +192,7 @@ export default {
         },
         {
           isActive: true,
-          user_id: "6",
+          userid: "6",
           age: 38,
           usertypeid: "CUSTOMER",
           first_name: "Jami",
@@ -124,7 +200,7 @@ export default {
         },
         {
           isActive: true,
-          user_id: "7",
+          userid: "7",
           age: 38,
           usertypeid: "MERCHANT",
           first_name: "Jami",
@@ -132,7 +208,7 @@ export default {
         },
         {
           isActive: true,
-          user_id: "8",
+          userid: "8",
           age: 38,
           usertypeid: "CUSTOMER",
           first_name: "Jami",
@@ -140,7 +216,7 @@ export default {
         },
         {
           isActive: true,
-          user_id: "9",
+          userid: "9",
           age: 38,
           usertypeid: "MERCHANT",
           first_name: "Jami",
@@ -169,7 +245,11 @@ export default {
     },
     getAction: function() {
       if (this.user === "TIER2") {
-        this.action = "external";
+        (this.action_user_new = "user_new"),
+          (this.action_user_mod = "user_mod"),
+          (this.action_account = "account");
+      } else if (this.user === "CUSTOMER" || this.user === "MERCHANT") {
+        this.action_transaction = "transaction";
       }
     },
     toggleBusy: function() {
@@ -184,6 +264,7 @@ export default {
     updateField: function() {
       var field = Object.keys(this.accounts[0]);
       if (this.user === "TIER2") {
+        // field.push("View", "Modify", "Close");
         field.push("Modify", "Close");
       }
       return field;
@@ -200,7 +281,7 @@ export default {
       } else {
         return {
           name: "account",
-          params: { userid: item.user_id, usertype: item.usertypeid }
+          params: { userid: item.userid, usertype: item.usertypeid }
         };
       }
     }
@@ -209,20 +290,10 @@ export default {
 </script>
 
 <style scoped>
-.accounts {
-  max-height: 25%;
-  overflow: scroll;
-}
 .users {
   margin: 5% auto;
 }
 .btn {
   margin: 0px 10px 20px;
-}
-table.b-table[aria-busy="false"] {
-  opacity: 1;
-}
-table.b-table[aria-busy="true"] {
-  opacity: 0.6;
 }
 </style>

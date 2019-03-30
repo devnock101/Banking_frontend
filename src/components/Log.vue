@@ -28,7 +28,7 @@
 <script>
 export default {
   name: "log",
-  created: function() {
+  mounted: function() {
     this.getLog();
   },
   props: {

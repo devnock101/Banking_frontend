@@ -19,7 +19,7 @@
             <b-form-input v-model="password" type="password" id="formInputGroupUsername2"/>
           </b-input-group>
           <br>
-          <b-button type="submit" variant="info">Login</b-button>
+          <b-button type="submit" variant="primary">Login</b-button>
         </b-form>
       </div>
     </b-card>
@@ -27,8 +27,6 @@
 </template>
 
 <script>
-// const axios = require("axios");
-
 export default {
   name: "login",
   data: function() {
@@ -42,8 +40,8 @@ export default {
       let loginUrl = process.env.VUE_APP_LOGIN_IN;
       this.axios
         .post(loginUrl, {
-          username: this.user,
-          password: this.pass
+          username: this.username,
+          password: this.password
         })
         .then(function() {});
       this.$router.push({ name: "user" });

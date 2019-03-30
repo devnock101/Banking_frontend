@@ -34,7 +34,7 @@
 <script>
 export default {
   name: "transactions",
-  created: function() {
+  mounted: function() {
     this.getTransactions();
   },
   data: function() {
