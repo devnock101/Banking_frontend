@@ -9,18 +9,6 @@
     >
       <b-tabs card pills content-class="mt-3">
         <b-tab title="View Accounts" active>
-          <!-- <div v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
-            <b-link
-              :to="{name: 'create', params: { action: this.action_transaction, user: this.user, id: this.userid } }"
-            >
-              <b-button class="btn" variant="info">Transaction</b-button>
-            </b-link>
-            <b-link
-              :to="{name: 'create', params: { action: this.action_account, user: this.user, id: this.userid } }"
-            >
-              <b-button class="btn" variant="info">Open Bank Account</b-button>
-            </b-link>
-          </div>-->
           <b-table
             ref="table"
             class="table"
@@ -36,7 +24,7 @@
           >
             <template slot="Modify" slot-scope="data">
               <b-link
-                :to="{name: 'create', params: { action: 'user_mod', user: 'TIER2', id: data.item.userid} }"
+                :to="{name: 'create', params: { action: 'user_mod', user: 'TIER2', id: data.item.userId} }"
               >
                 <b-button variant="primary">Modify</b-button>
               </b-link>
@@ -71,13 +59,16 @@
           </b-row>
         </b-tab>
         <b-tab title="Add User" v-if="this.user === 'TIER2'">
-          <User :users="this.users"/>
+          <User :users="this.users" :id="null"/>
         </b-tab>
         <b-tab title="Add Bank Account" v-if="this.user === 'TIER2'">
           <Account/>
         </b-tab>
+        <b-tab title="Bank Account Requests" v-if="this.user === 'TIER2'">
+          <UserReq/>
+        </b-tab>
         <b-tab title="New Bank Account" v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
-          <Account :id="this.userId"/>
+          <Account :id="this.id"/>
         </b-tab>
         <b-tab title="Move Funds" v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
           <Move :userId="this.userId" :action="this.move"/>
@@ -99,10 +90,8 @@
 <script>
 import User from "@/components/UserForm.vue";
 import Account from "@/components/BankForm.vue";
-import AccDetails from "@/components/AccDetails.vue";
-import TransList from "@/components/Transactions.vue";
-import Trans from "@/components/TransForm.vue";
 import Move from "@/components/TransFund.vue";
+import UserReq from "@/components/UserReq.vue";
 
 export default {
   name: "bank_accounts",
@@ -116,10 +105,8 @@ export default {
   components: {
     User,
     Account,
-    AccDetails,
-    TransList,
-    Trans,
-    Move
+    Move,
+    UserReq
   },
   props: {
     userType: {
@@ -291,7 +278,7 @@ export default {
 
 <style scoped>
 .users {
-  margin: 5% auto;
+  margin: 3% auto;
 }
 .btn {
   margin: 0px 10px 20px;

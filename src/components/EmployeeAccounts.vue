@@ -153,7 +153,8 @@ export default {
       this.toggleBusy();
       let accountList = process.env.VUE_APP_EMPLY_LIST;
       this.axios.get(accountList).then(response => {
-        this.accounts = response.body.users;
+        this.accounts = response.data;
+        //CHANGED THIS
       });
       this.totalRows = this.accounts.length;
       this.$refs.table.refresh();

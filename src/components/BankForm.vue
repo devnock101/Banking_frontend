@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="userform">
     <b-form @submit.prevent="submitForm">
       <b-input-group>
         <b-input
@@ -31,13 +31,14 @@ export default {
   props: {
     id: {
       type: String,
-      required: true,
+      required: false,
       default: null
     }
   },
   data: function() {
     return {
       users: ["CHECKING", "SAVING", "CREDIT"],
+      userid: this.id,
       userObj: {
         userId: this.id,
         bankingAccountType: null
@@ -56,7 +57,7 @@ export default {
 
 <style scoped>
 .userform {
-  width: 60%;
+  width: 70%;
   margin: 3% auto;
 }
 .input {

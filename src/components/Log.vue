@@ -120,7 +120,8 @@ export default {
         process.env.VUE_APP_USER_LOG +
         "50";
       this.axios.get(logUrl).then(response => {
-        this.logData = response.body.log;
+        this.logData = response.data;
+        //CHANGED THIS
       });
       this.totalRows = this.logData.length;
       this.toggleBusy();

@@ -29,8 +29,12 @@
         <b-tab
           title="Support"
           v-if="this.userObj.usertypeid === 'CUSTOMER' || this.userObj.usertypeid === 'MERCHANT'"
-        ></b-tab>
-        <b-tab title="Logout" no-body></b-tab>
+        >
+          <Support/>
+        </b-tab>
+        <b-tab title="Logout" no-body>
+          <Logout/>
+        </b-tab>
       </b-tabs>
     </b-card>
   </div>
@@ -42,6 +46,7 @@ import EmplyAccounts from "@/components/EmployeeAccounts.vue";
 import BankAccounts from "@/components/BankAccounts.vue";
 import TransReq from "@/components/TransReq.vue";
 import Logout from "@/components/Logout.vue";
+import Support from "@/components/Support.vue";
 
 export default {
   name: "user",
@@ -53,7 +58,7 @@ export default {
       userObj: {
         // usertypeid: "TIER1",
         // usertypeid: "TIER2",
-        usertypeid: "TIER3",
+        // usertypeid: "TIER3",
         // usertypeid: "CUSTOMER",
         // usertypeid: "MERCHANT",
         userid: "1234"
@@ -65,7 +70,8 @@ export default {
     EmplyAccounts,
     BankAccounts,
     TransReq,
-    Logout
+    Logout,
+    Support
   },
   methods: {
     getUser: function() {

@@ -3,12 +3,22 @@
     <User
       :users="this.userList(this.userType)"
       :id="null"
-      v-if="(this.action === 'user_new' || this.action === 'employee') && this.userType === 'TIER2'"
+      v-if="(this.action === 'user_new') && this.userType === 'TIER2'"
+    />
+    <User
+      :users="this.userList(this.userType)"
+      :id="null"
+      v-if="(this.action === 'employee') && this.userType === 'TIER3'"
     />
     <User
       :users="this.userList(this.userType)"
       :id="this.userId"
-      v-if="(this.action === 'user_mod' || this.action === 'employee_mod') && this.userType === 'TIER3'"
+      v-if="(this.action === 'user_mod') && this.userType === 'TIER2'"
+    />
+    <User
+      :users="this.userList(this.userType)"
+      :id="this.userId"
+      v-if="(this.action === 'employee_mod') && this.userType === 'TIER3'"
     />
     <Trans v-if="this.userTest()"/>
     <Move :userId="this.userId" v-if="(this.action === 'move' && this.userType === 'CUSTOMER')"/>

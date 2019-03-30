@@ -1,7 +1,7 @@
 <template>
   <div class="account container">
     <AccDetails :userId="this.id"/>
-    <TransList v-if="this.usertype !== 'TIER3'"/>
+    <TransList :account="this.accountid" v-if="this.usertype !== 'TIER3'"/>
     <Log :userid="this.id" v-if="this.usertype === 'TIER3'"/>
   </div>
 </template>
@@ -23,6 +23,9 @@ export default {
       type: String,
       required: true
     },
+    accountid: {
+      type: String
+    },
     usertype: {
       type: String,
       required: true
@@ -31,6 +34,7 @@ export default {
   data: function() {
     return {
       id: this.userid,
+      account: this.accountid,
       user: this.usertype
     };
   }

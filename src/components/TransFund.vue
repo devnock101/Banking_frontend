@@ -3,30 +3,42 @@
     <div class="userform">
       <b-card border-variant="light" nobody>
         <b-form @submit.prevent="submitForm">
-          <!-- <b-form-select v-model="this.transObj.toAccountId" :options="options"> -->
-          <b-input
-            id="from"
-            class="input"
-            type="text"
+          <b-form-select
             v-model="this.transObj.fromAccountId"
-            placeholder="From"
-          />
-          <!-- <b-form-select
-            v-model="this.userObj.bankingAccountType"
-            class="input3"
-            :options="this.users"
+            class="input"
+            :options="this.accounted"
           >
             <template slot="first">
-              <option :value="null" disabled>Please select an option</option>
+              <option
+                :value="null"
+                disabled
+                v-if="this.act === 'transfer'||this.act === 'move'"
+              >Please select an account to send from</option>
+              <option
+                :value="null"
+                disabled
+                v-if="this.act === 'credit'||this.act === 'debit'"
+              >Please select an account</option>
             </template>
-          </b-form-select>-->
+          </b-form-select>
           <b-input
             id="to"
             class="input"
             type="text"
-            v-model="this.transObj.fromAccountId"
-            placeholder="To"
+            v-model="this.emailOrPhone"
+            placeholder="Send using email or phone"
+            v-if="this.act === 'transfer'"
           />
+          <b-form-select
+            v-model="this.accid"
+            class="input"
+            :options="this.accounted"
+            v-if="this.act === 'move'"
+          >
+            <template slot="first">
+              <option :value="null" disabled>Please select an account to send to</option>
+            </template>
+          </b-form-select>
           <b-input-group>
             <b-input
               id="amount"
@@ -58,6 +70,7 @@ export default {
   },
   mounted: function() {
     this.getAccounts();
+    this.makeAccountList();
   },
   data: function() {
     return {
@@ -65,8 +78,9 @@ export default {
       user: this.userType,
       act: this.action,
       id: this.userId,
+      emailOrPhone: null,
       transObj: {
-        transactionTypeId: "TRANSFER",
+        transactionTypeId: this.actType(),
         fromAccountId: null,
         toAccountId: null,
         amount: null
@@ -75,7 +89,7 @@ export default {
         {
           isActive: true,
           userid: "1",
-          accountid: "1",
+          bankingAccountId: "1",
           age: 40,
           usertypeid: "CUSTOMER",
           first_name: "Dickerson",
@@ -84,7 +98,7 @@ export default {
         {
           isActive: false,
           userid: "2",
-          accountid: "2",
+          bankingAccountId: "2",
           age: 21,
           usertypeid: "MERCHANT",
           first_name: "Larsen",
@@ -93,7 +107,7 @@ export default {
         {
           isActive: false,
           userid: "3",
-          accountid: "3",
+          bankingAccountId: "3",
           age: 89,
           usertypeid: "CUSTOMER",
           first_name: "Geneva",
@@ -102,7 +116,7 @@ export default {
         {
           isActive: true,
           userid: "4",
-          accountid: "4",
+          bankingAccountId: "4",
           age: 38,
           usertypeid: "MERCHANT",
           first_name: "Jami",
@@ -111,7 +125,7 @@ export default {
         {
           isActive: true,
           userid: "5",
-          accountid: "5",
+          bankingAccountId: "5",
           age: 38,
           usertypeid: "CUSTOMER",
           first_name: "Jami",
@@ -120,7 +134,7 @@ export default {
         {
           isActive: true,
           userid: "6",
-          accountid: "6",
+          bankingAccountId: "6",
           age: 38,
           usertypeid: "CUSTOMER",
           first_name: "Jami",
@@ -129,7 +143,7 @@ export default {
         {
           isActive: true,
           userid: "7",
-          accountid: "7",
+          bankingAccountId: "7",
           age: 38,
           usertypeid: "MERCHANT",
           first_name: "Jami",
@@ -138,7 +152,7 @@ export default {
         {
           isActive: true,
           userid: "8",
-          accountid: "8",
+          bankingAccountId: "8",
           age: 38,
           usertypeid: "CUSTOMER",
           first_name: "Jami",
@@ -147,7 +161,7 @@ export default {
         {
           isActive: true,
           userid: "9",
-          accountid: "9",
+          bankingAccountId: "9",
           age: 38,
           usertypeid: "MERCHANT",
           first_name: "Jami",
@@ -163,7 +177,28 @@ export default {
         this.accounts = response.data;
       });
     },
+    makeAccountList: function() {
+      let temp = [];
+      let len = this.accounts.length;
+      for (let i = 0; i < len; i++) {
+        temp.push(this.accounts[i].bankingAccountId);
+      }
+      this.accounted = temp;
+    },
+    actType: function() {
+      if (this.act === "move" || this.act === "transfer") {
+        return "TRANSFER";
+      } else if (this.act === "credit") {
+        return "CREDIT";
+      } else if (this.act === "debit") {
+        return "DEBIT";
+      }
+    },
     submitForm: function() {
+      let searchUrl = process.env.VUE_APP_ACC_SEARCH + this.emailOrPhone;
+      this.axios.get(searchUrl).then(response => {
+        this.toAccountId = response.data;
+      });
       let createUrl = process.env.VUE_APP_TRANS_CREATE;
       this.axios.post(createUrl, this.transObj).then(function() {});
       this.$router.push({ name: "user" });

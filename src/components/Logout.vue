@@ -1,3 +1,6 @@
+<template>
+  <div>GOODBYE!</div>
+</template>
 
 
 <script>
@@ -8,7 +11,9 @@ export default {
   },
   methods: {
     logout: function() {
-      this.$route.push({ name: "home" });
+      let logOut = process.env.VUE_APP_LOGOUT;
+      this.axios.get(logOut).then(function() {});
+      this.$route.push({ path: "/" }); //Add router guard here
     }
   }
 };
