@@ -26,7 +26,9 @@ Vue.axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
 // Vue.axios.defaults.headers.post["responseType"] = "json";
 // Vue.axios.defaults.headers.post["Content-Type"] =
 //   "application/x-www-form-urlencoded";
-// export default Vue.axios;
+
+Vue.axios.defaults.withCredentials = true;
+export default Vue.axios;
 
 new Vue({
   router,

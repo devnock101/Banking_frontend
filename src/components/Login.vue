@@ -32,18 +32,48 @@ export default {
   data: function() {
     return {
       username: "",
-      password: ""
+      password: "",
+      output: ""
     };
   },
   methods: {
     login: function() {
       let loginUrl = process.env.VUE_APP_LOGIN_IN;
+      // let header = {
+      //   headers: { "Content-Type": "application/x-www-form-urlencoded" }
+      // };
+      // let params = {
+      //   username: this.username,
+      //   password: this.password
+      // };
+
+      // var form_data = "";
+      // for (var key in params) {
+      //   form_data +=
+      //     encodeURIComponent(key) + "=" + encodeURIComponent(params[key]) + "&";
+      // }
+      // let len = form_data.length;
+      // len -= 1;
+      // form_data = form_data.substring(0, len);
+
+      // this.axios.post(loginUrl, form_data, header).then(response => {
+      //   this.output = response.data;
+      // });
+
       this.axios
-        .post(loginUrl, {
-          username: this.username,
-          password: this.password
-        })
-        .then(function() {});
+        .post(
+          loginUrl,
+          {
+            username: this.username,
+            password: this.password
+          },
+          {
+            credentials: "same-origin"
+          }
+        )
+        .then(response => {
+          this.output = response.data;
+        });
       this.$router.push({ name: "user" });
     }
   }

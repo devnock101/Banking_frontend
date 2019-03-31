@@ -33,7 +33,7 @@
           <Support/>
         </b-tab>
         <b-tab title="Logout" no-body>
-          <Logout/>
+          <!-- <Logout/> -->
         </b-tab>
       </b-tabs>
     </b-card>
@@ -61,8 +61,11 @@ export default {
         // usertypeid: "TIER3",
         // usertypeid: "CUSTOMER",
         // usertypeid: "MERCHANT",
-        userid: "1234"
-      }
+        userid: "5",
+        usertypeid: "TIER2"
+      },
+      userid: null,
+      role: null
     };
   },
   components: {
@@ -77,8 +80,24 @@ export default {
     getUser: function() {
       let userUrl = process.env.VUE_APP_USER_INFO;
       this.axios.get(userUrl).then(response => {
-        this.userObj = response.data;
+        this.userObj.userid = response.data.userid;
+        this.role = response.data.role;
+        this.changeInput();
       });
+    },
+    changeInput: function() {
+      this.userObj.userid = this.inputObj.userid;
+      if (this.role === "ROLE_TIER1") {
+        this.userObj.usertypeid = "TIER1";
+      } else if (this.role === "ROLE_TIER2") {
+        this.userObj.usertypeid = "TIER2";
+      } else if (this.role === "ROLE_ADMIN") {
+        this.userObj.usertypeid = "TIER3";
+      } else if (this.role === "ROLE_CUSTOMER") {
+        this.userObj.usertypeid = "CUSTOMER";
+      } else if (this.role === "ROLE_MERCHANT") {
+        this.userObj.usertypeid = "MERCHANT";
+      }
     }
   }
 };
