@@ -4,37 +4,35 @@
       <b-tabs card pills content-class="mt-3">
         <b-tab
           title="Details"
-          v-if="this.userObj.usertypeid === 'CUSTOMER' || this.userObj.usertypeid === 'MERCHANT'"
+          v-if="this.userObj.role === 'ROLE_CUSTOMER' || this.userObj.role === 'ROLE_MERCHANT'"
         >
           <AccDetails :userId="this.userObj.userid"/>
         </b-tab>
         <b-tab
           title="Accounts"
-          v-if="this.userObj.usertypeid === 'TIER1' || 
-                        this.userObj.usertypeid === 'TIER2' || 
-                        this.userObj.usertypeid === 'CUSTOMER' || 
-                        this.userObj.usertypeid === 'MERCHANT'"
+          v-if="this.userObj.role === 'ROLE_TIER1' || 
+                        this.userObj.role === 'ROLE_TIER2' || 
+                        this.userObj.role === 'ROLE_CUSTOMER' || 
+                        this.userObj.role === 'ROLE_MERCHANT'"
         >
-          <BankAccounts :userType="this.userObj.usertypeid" :userId="this.userObj.userid"/>
+          <BankAccounts :userType="this.userObj.role" :userId="this.userObj.userid"/>
         </b-tab>
         <b-tab
           title="Transactions"
-          v-if="this.userObj.usertypeid === 'TIER1' || this.userObj.usertypeid === 'TIER2'"
+          v-if="this.userObj.role === 'ROLE_TIER1' || this.userObj.role === 'ROLE_TIER2'"
         >
-          <TransReq :userType="this.userObj.usertypeid" :userId="this.userObj.userid"/>
+          <TransReq :userType="this.userObj.role" :userId="this.userObj.userid"/>
         </b-tab>
-        <b-tab title="Accounts" v-if="this.userObj.usertypeid === 'TIER3'">
+        <b-tab title="Accounts" v-if="this.userObj.role === 'ROLE_ADMIN'">
           <EmplyAccounts/>
         </b-tab>
         <b-tab
           title="Support"
-          v-if="this.userObj.usertypeid === 'CUSTOMER' || this.userObj.usertypeid === 'MERCHANT'"
+          v-if="this.userObj.role === 'ROLE_CUSTOMER' || this.userObj.role === 'ROLE_MERCHANT'"
         >
           <Support/>
         </b-tab>
-        <b-tab title="Logout" no-body>
-          <!-- <Logout/> -->
-        </b-tab>
+        <!-- <b-tab title="Logout" no-body></b-tab> -->
       </b-tabs>
     </b-card>
   </div>
@@ -50,22 +48,15 @@ import Support from "@/components/Support.vue";
 
 export default {
   name: "user",
-  mounted: function() {
+  created: function() {
     this.getUser();
   },
   data: function() {
     return {
       userObj: {
-        // usertypeid: "TIER1",
-        // usertypeid: "TIER2",
-        // usertypeid: "TIER3",
-        // usertypeid: "CUSTOMER",
-        // usertypeid: "MERCHANT",
-        userid: "5",
-        usertypeid: "TIER2"
-      },
-      userid: null,
-      role: null
+        userid: "",
+        role: ""
+      }
     };
   },
   components: {
@@ -80,24 +71,8 @@ export default {
     getUser: function() {
       let userUrl = process.env.VUE_APP_USER_INFO;
       this.axios.get(userUrl).then(response => {
-        this.userObj.userid = response.data.userid;
-        this.role = response.data.role;
-        this.changeInput();
+        this.userObj = response.data;
       });
-    },
-    changeInput: function() {
-      this.userObj.userid = this.inputObj.userid;
-      if (this.role === "ROLE_TIER1") {
-        this.userObj.usertypeid = "TIER1";
-      } else if (this.role === "ROLE_TIER2") {
-        this.userObj.usertypeid = "TIER2";
-      } else if (this.role === "ROLE_ADMIN") {
-        this.userObj.usertypeid = "TIER3";
-      } else if (this.role === "ROLE_CUSTOMER") {
-        this.userObj.usertypeid = "CUSTOMER";
-      } else if (this.role === "ROLE_MERCHANT") {
-        this.userObj.usertypeid = "MERCHANT";
-      }
     }
   }
 };

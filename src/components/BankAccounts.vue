@@ -24,7 +24,7 @@
           >
             <template slot="Modify" slot-scope="data">
               <b-link
-                :to="{name: 'create', params: { action: 'user_mod', user: 'TIER2', id: data.item.userId} }"
+                :to="{name: 'create', params: { action: 'user_mod', user: 'ROLE_TIER2', id: data.item.userId} }"
               >
                 <b-button variant="primary">Modify</b-button>
               </b-link>
@@ -58,28 +58,43 @@
             </b-col>
           </b-row>
         </b-tab>
-        <b-tab title="Add User" v-if="this.user === 'TIER2'">
+        <b-tab title="Add User" v-if="this.user === 'ROLE_TIER2'">
           <User :users="this.users" :id="null"/>
         </b-tab>
-        <b-tab title="Add Bank Account" v-if="this.user === 'TIER2'">
+        <b-tab title="Add Bank Account" v-if="this.user === 'ROLE_TIER2'">
           <Account/>
         </b-tab>
-        <b-tab title="Bank Account Requests" v-if="this.user === 'TIER2'">
+        <b-tab title="Bank Account Requests" v-if="this.user === 'ROLE_TIER2'">
           <UserReq/>
         </b-tab>
-        <b-tab title="New Bank Account" v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
+        <b-tab
+          title="New Bank Account"
+          v-if="this.user === 'ROLE_CUSTOMER' || this.user === 'ROLE_MERCHANT'"
+        >
           <Account :id="this.id"/>
         </b-tab>
-        <b-tab title="Move Funds" v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
+        <b-tab
+          title="Move Funds"
+          v-if="this.user === 'ROLE_CUSTOMER' || this.user === 'ROLE_MERCHANT'"
+        >
           <Move :userId="this.userId" :action="this.move"/>
         </b-tab>
-        <b-tab title="Credit Funds" v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
+        <b-tab
+          title="Credit Funds"
+          v-if="this.user === 'ROLE_CUSTOMER' || this.user === 'ROLE_MERCHANT'"
+        >
           <Move :userId="this.userId" :action="this.credit"/>
         </b-tab>
-        <b-tab title="Debit Funds" v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
+        <b-tab
+          title="Debit Funds"
+          v-if="this.user === 'ROLE_CUSTOMER' || this.user === 'ROLE_MERCHANT'"
+        >
           <Move :userId="this.userId" :action="this.debit"/>
         </b-tab>
-        <b-tab title="Transfer Funds" v-if="this.user === 'CUSTOMER' || this.user === 'MERCHANT'">
+        <b-tab
+          title="Transfer Funds"
+          v-if="this.user === 'ROLE_CUSTOMER' || this.user === 'ROLE_MERCHANT'"
+        >
           <Move :userId="this.userId" :action="this.transfer"/>
         </b-tab>
       </b-tabs>
@@ -119,6 +134,7 @@ export default {
   },
   data: function() {
     return {
+      head: this.header,
       isBusy: false,
       accountUrl: "",
       id: this.userId,
@@ -214,7 +230,7 @@ export default {
   },
   methods: {
     getUrl: function() {
-      if (this.user === "TIER1" || this.user === "TIER2") {
+      if (this.user === "ROLE_TIER1" || this.user === "ROLE_TIER2") {
         this.accountUrl = process.env.VUE_APP_ACCOUNT_LIST_INTERNAL;
       } else {
         this.accountUrl =
@@ -223,7 +239,7 @@ export default {
     },
     getUsers: function() {
       this.toggleBusy();
-      this.axios.get(this.accountUrl).then(response => {
+      this.axios.get(this.accountUrl, this.head).then(response => {
         this.accounts = response.data;
       });
       this.totalRows = this.accounts.length;
@@ -231,11 +247,14 @@ export default {
       this.toggleBusy();
     },
     getAction: function() {
-      if (this.user === "TIER2") {
+      if (this.user === "ROLE_TIER2") {
         (this.action_user_new = "user_new"),
           (this.action_user_mod = "user_mod"),
           (this.action_account = "account");
-      } else if (this.user === "CUSTOMER" || this.user === "MERCHANT") {
+      } else if (
+        this.user === "ROLE_CUSTOMER" ||
+        this.user === "ROLE_MERCHANT"
+      ) {
         this.action_transaction = "transaction";
       }
     },
@@ -245,12 +264,12 @@ export default {
     accClose: function(i) {
       var id = this.accounts.splice(i, 1).id;
       let closeUrl = process.env.VUE_APP_ACCOUNT + id;
-      this.axios.delete(closeUrl).then(function() {});
+      this.axios.delete(closeUrl, this.head).then(function() {});
       this.$refs.table.refresh();
     },
     updateField: function() {
       var field = Object.keys(this.accounts[0]);
-      if (this.user === "TIER2") {
+      if (this.user === "ROLE_TIER2") {
         // field.push("View", "Modify", "Close");
         field.push("Modify", "Close");
       }
@@ -260,7 +279,10 @@ export default {
       this.$router.push(this.forUser(item));
     },
     forUser: function(item) {
-      if (this.userType === "CUSTOMER" || this.userType === "MERCHANT") {
+      if (
+        this.userType === "ROLE_CUSTOMER" ||
+        this.userType === "ROLE_MERCHANT"
+      ) {
         return {
           name: "account",
           params: { userid: this.id, usertype: this.userType }

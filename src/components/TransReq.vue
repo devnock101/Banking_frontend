@@ -193,10 +193,10 @@ export default {
     },
     userTest: function() {
       return (
-        this.user === "TIER1" ||
-        this.user === "TIER2" ||
-        this.user === "CUSTOMER" ||
-        this.user === "MERCHANT"
+        this.user === "ROLE_TIER1" ||
+        this.user === "ROLE_TIER2" ||
+        this.user === "ROLE_CUSTOMER" ||
+        this.user === "ROLE_MERCHANT"
       );
     }
   }

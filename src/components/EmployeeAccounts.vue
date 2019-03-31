@@ -24,7 +24,7 @@
           >
             <template slot="Modify" slot-scope="data">
               <b-link
-                :to="{name: 'create', params: { action: 'employee_mod', user: 'TIER3', id: data.item.userid} }"
+                :to="{name: 'create', params: { action: 'employee_mod', user: 'ROLE_TIER3', id: data.item.userid} }"
               >
                 <b-button variant="primary">Modify</b-button>
               </b-link>
