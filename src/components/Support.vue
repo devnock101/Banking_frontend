@@ -15,14 +15,14 @@
       <b-card-sub-title>Enter the Appointment details</b-card-sub-title>
 
       <b-card-body>
-        <div class="form-row">
-          <div class="col-6">
-            <input type="text" v-model="firstname" class="form-control" placeholder="First name">
-          </div>
-          <div class="col-6">
-            <input type="text" v-model="lastname" class="form-control" placeholder="Last name">
-          </div>
-        </div>
+<!--        <div class="form-row">-->
+<!--          <div class="col-6">-->
+<!--            <input type="text" v-model="firstname" class="form-control" placeholder="First name">-->
+<!--          </div>-->
+<!--          <div class="col-6">-->
+<!--            <input type="text" v-model="lastname" class="form-control" placeholder="Last name">-->
+<!--          </div>-->
+<!--        </div>-->
         <br>
         <div class>
           <b-form-textarea
@@ -59,9 +59,21 @@
                         </div>
         </div-->
         <br>
+        <div>
+          <b-col>
+            <b-button @click="this.getOtp" variant="primary"> Get Bank Statement</b-button>
+          </b-col>
+          <b-col>
+            <input type="number" v-model="enteredOtp" id="pass" minlength="4" required>
+          </b-col>
+          <b-col>
+            <b-button @click="this.submitOtp" variant="primary">Submit OTP</b-button>
+          </b-col>
+        </div>
+
 
         <div>
-          <b-button v-on:click="this.postAppointment" block variant="primary">Request Appointment</b-button>
+          <!--b-button v-on:click="this.postAppointment" block variant="primary">Request Appointment</b-button-->
         </div>
         <!-- <b-card-subtitle v-if="this.errorMessage===''"></b-card-subtitle>
         <b-card-subtitle v-else>{{this.errorMessage}}</b-card-subtitle>-->
@@ -75,11 +87,19 @@ export default {
   name: "support",
   data() {
     return {
+      otpDetails:{
+        optRequestId: '',
+        otp: '',
+        userId: '',
+        status: ''
+      },
       postBody: {
-        userId: "",
-        appointmentDate: "",
-        appointmentTime: "",
-        reason: ""
+        userid: '',
+        appointmentdate: '',
+        appointmenttime: '',
+        reason: '',
+        status: ''
+
       },
       firstname: "",
       lastname: ""
@@ -91,16 +111,28 @@ export default {
       console.log(this.postBody.appointmentTime);
       console.log(this.postBody.appointmentDate);
       let hours = parseInt(this.postBody.appointmentTime.split(":")[0], 10);
-      //   let mins = this.postBody.appointmentTime.split(":")[0];
+
       console.log("hours " + hours);
-      //   if (hours < 9 || hours > 17) {
-      //     errorMessage = "Please enter time between 9AM - 5PM";
-      //     console.log("2");
-      //   } else {
-      //     console.log("1");
-      //     let helpDetails = process.env.VUE_APP_HELP_APPOINT;
-      //     this.axios.post(helpDetails, this.postBody).then(function() {});
-      //   }
+          let helpDetails = process.env.VUE_APP_HELP_APPOINT;
+          this.axios.post(helpDetails, this.postBody).then(function() {});
+    },
+    getOtp: function(){
+
+      let Url = process.env.VUE_APP_OTP;
+      this.axios.get(Url).then(function(response){
+          this.otpDetails = response.data;
+      });
+
+    },
+    submitOtp: function(){
+
+      let otpUrl = process.env.VUE_APP_OTP + this.otpDetails.optRequestId + "/" + this.enteredOtp;
+      this.axios.get(otpUrl).then(function(response){
+          if(response == true){
+            this.postAppointment();
+          }
+      });
+
     }
   }
 };
