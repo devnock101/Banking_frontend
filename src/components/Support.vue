@@ -129,7 +129,9 @@ export default {
       let otpUrl = process.env.VUE_APP_OTP + this.otpDetails.optRequestId + "/" + this.enteredOtp;
       this.axios.get(otpUrl).then(function(response){
           if(response == true){
+              console.log("Appointment validated")
             this.postAppointment();
+
           }
       });
 
