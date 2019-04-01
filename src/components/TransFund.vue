@@ -30,8 +30,9 @@
             placeholder="Send using email or phone"
             v-if="this.act === 'transfer'"
           />
+
           <b-form-select
-            v-model="accid"
+            v-model="transObj.toAccountId"
             class="input"
             :options="this.accounted"
             v-if="this.act === 'move'"
@@ -73,7 +74,6 @@ export default {
   },
   mounted: function() {
     this.getAccounts();
-    this.makeAccountList();
   },
   data: function() {
     return {
@@ -81,7 +81,6 @@ export default {
       user: this.userType,
       act: this.action,
       id: this.userId,
-      accid: null,
       emailOrPhone: null,
       transObj: {
         transactionTypeId: this.actType(),
@@ -177,8 +176,11 @@ export default {
   methods: {
     getAccounts: function() {
       let accUrl = process.env.VUE_APP_ACCOUNT_LIST_EXTERNAL + this.id;
+      let self = this;
       this.axios.get(accUrl).then(response => {
         this.accounts = response.data;
+      }).then(()=>{
+        self.makeAccountList();
       });
     },
     makeAccountList: function() {
@@ -200,9 +202,11 @@ export default {
     },
     submitForm: function() {
       let searchUrl = process.env.VUE_APP_ACC_SEARCH + this.emailOrPhone;
-      this.axios.get(searchUrl).then(response => {
-        this.toAccountId = response.data;
+      if(this.act === "transfer"){
+        this.axios.get(searchUrl).then(response => {
+        this.transObj.toAccountId = response.data;
       });
+      }
       let createUrl = process.env.VUE_APP_TRANS_CREATE;
       this.axios.post(createUrl, this.transObj).then(function() {});
       this.$router.push({ name: "user" });
