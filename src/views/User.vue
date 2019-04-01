@@ -2,6 +2,7 @@
   <div>
     <b-card no-body>
       <b-tabs card pills content-class="mt-3">
+        <b-button @click="logout" variant="primary">Logout</b-button>
         <b-tab
           title="Details"
           v-if="this.userObj.role === 'ROLE_CUSTOMER' || this.userObj.role === 'ROLE_MERCHANT'"
@@ -46,7 +47,7 @@ import AccDetails from "@/components/AccDetails.vue";
 import EmplyAccounts from "@/components/EmployeeAccounts.vue";
 import BankAccounts from "@/components/BankAccounts.vue";
 import TransReq from "@/components/TransReq.vue";
-import Logout from "@/components/Logout.vue";
+// import Logout from "@/components/Logout.vue";
 import Support from "@/components/Support.vue";
 
 export default {
@@ -67,7 +68,7 @@ export default {
     EmplyAccounts,
     BankAccounts,
     TransReq,
-    Logout,
+    // Logout,
     Support
   },
   methods: {
@@ -76,6 +77,11 @@ export default {
       this.axios.get(userUrl).then(response => {
         this.userObj = response.data;
       });
+    },
+    logout: function() {
+      let logOut = process.env.VUE_APP_LOGOUT;
+      this.axios.get(logOut).then(function() {});
+      this.$router.push({ path: "/" }); //Add router guard here
     }
   }
 };
