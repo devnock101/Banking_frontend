@@ -13,14 +13,14 @@
               id="fname"
               class="input1"
               type="text"
-              v-model="this.obj.userObj.fname"
+              v-model="this.obj.userObj.firstname"
               placeholder="First Name"
             />
             <b-input
               id="lname"
               class="input2"
               type="text"
-              v-model="this.obj.userObj.lname"
+              v-model="this.obj.userObj.lastname"
               placeholder="Last name"
             />
           </div>
@@ -189,23 +189,23 @@ export default {
       ],
       obj: {
         userObj: {
-          username: null,
-          password: null,
-          fname: null,
-          lname: null,
-          email: null,
-          phone: null,
-          phone2: null,
-          dob: null,
-          usertypeid: null
+          user: "fries1",
+          pass: "mcd",
+          firstname: "mc",
+          lastname: "mcd",
+          email: "mcd1@mail.com",
+          phone: 123457819,
+          phone2: 12356128,
+          dob: "1995-05-6",
+          usertypeid: "ROLE_MERCHANT"
         },
         addressObj: {
-          street: null,
-          street2: null,
-          city: null,
-          state: null,
-          country: null,
-          zipcode: null
+          street: "ST1",
+          street2: "ST2",
+          city: "TEMPE",
+          state: "AZ",
+          country: "US",
+          zipcode: 85282
         }
       },
       temp: {}
@@ -258,7 +258,7 @@ export default {
     },
     submitForm: function() {
       let createUrl = process.env.VUE_APP_USER_CREATE;
-      this.axios.post(createUrl, this.userObj).then(function() {});
+      this.axios.post(createUrl, this.obj).then(function() {});
       this.$router.push({ name: "user" });
     }
   }

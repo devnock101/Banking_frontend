@@ -16,7 +16,9 @@ Vue.use(VueAxios, axios);
 Vue.use(VueSession);
 Vue.use(BootstrapVue);
 
-Vue.axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
+// Vue.axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
+// Vue.axios.defaults.crossDomain = true;
+Vue.axios.defaults.baseURL =   process.env.VUE_APP_BASE_URL;
 Vue.axios.defaults.withCredentials = true;
 export default Vue.axios;
 

@@ -175,10 +175,9 @@ export default {
       var id = this.transItems.splice(i, 1).transactionId;
       let approve =
         process.env.VUE_APP_TRANS_REQUEST_APPROVE +
-        "?List_transactionID={" +
-        id +
-        "}";
-      this.axios.put(approve).then(function() {});
+        "?list_transactionID="+
+        1;
+      this.axios.get(approve).then(function() {});
       this.$refs.table.refresh();
     },
     transDecline: function(i) {
@@ -188,7 +187,7 @@ export default {
         "?List_transactionID={" +
         id +
         "}";
-      this.axios.put(decline).then(function() {});
+      this.axios.get(decline).then(function() {});
       this.$refs.table.refresh();
     },
     userTest: function() {

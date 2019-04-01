@@ -49,10 +49,9 @@ export default {
       let userDetails = process.env.VUE_APP_USER + this.userid;
       this.axios.get(userDetails).then(response => {
         this.items = response.data;
-        //CHANGED THIS
+        this.details = [];
+        this.details.push(this.items);
       });
-      this.details = [];
-      this.details.push(this.items);
       this.toggleBusy();
     },
     toggleBusy: function() {

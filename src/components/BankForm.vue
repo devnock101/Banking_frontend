@@ -40,14 +40,17 @@ export default {
       users: ["CHECKING", "SAVING", "CREDIT"],
       userid: this.id,
       userObj: {
-        userId: this.id,
-        bankingAccountType: null
+        userId: 12,
+        bankingAccountType: "CREDIT",
+        balance: 300.06,
+        accountNumber: 103
       }
     };
   },
   methods: {
     submitForm: function() {
       let createUrl = process.env.VUE_APP_ACCOUNT_CREATE;
+      console.log(this.userObj);
       this.axios.post(createUrl, this.userObj).then(function() {});
       this.$router.push({ name: "user" });
     }
