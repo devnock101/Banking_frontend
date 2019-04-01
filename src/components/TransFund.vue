@@ -4,7 +4,7 @@
       <b-card border-variant="light" nobody>
         <b-form @submit.prevent="submitForm">
           <b-form-select
-            v-model="this.transObj.fromAccountId"
+            v-model="transObj.fromAccountId"
             class="input"
             :options="this.accounted"
           >
@@ -26,12 +26,12 @@
             id="to"
             class="input"
             type="text"
-            v-model="this.emailOrPhone"
+            v-model="emailOrPhone"
             placeholder="Send using email or phone"
             v-if="this.act === 'transfer'"
           />
           <b-form-select
-            v-model="this.accid"
+            v-model="accid"
             class="input"
             :options="this.accounted"
             v-if="this.act === 'move'"
@@ -46,12 +46,12 @@
               id="amount"
               class="input"
               type="text"
-              v-model="this.transObj.amount"
+              v-model="transObj.amount"
               placeholder="Amount"
             />
             <b-button variant="primary" slot="append" class="input" @click="submitForm">Transfer</b-button>
           </b-input-group>
-          
+
         </b-form>
       </b-card>
     </div>

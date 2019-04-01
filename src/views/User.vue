@@ -2,7 +2,7 @@
   <div>
     <b-card no-body>
       <b-tabs card pills content-class="mt-3">
-        <b-button @click="logout" variant="primary">Logout</b-button>
+<!--        <b-button @click="logout" variant="primary">Logout</b-button>-->
         <b-tab
           title="Details"
           v-if="this.userObj.role === 'ROLE_CUSTOMER' || this.userObj.role === 'ROLE_MERCHANT'"
@@ -37,6 +37,9 @@
 <!--            <Logout/>-->
 <!--        </b-tab>-->
 <!--        <b-botton>Hello</b-botton>-->
+        <template slot="tabs">
+          <b-nav-item href="#" @click="logout">Logout</b-nav-item>
+        </template>
       </b-tabs>
     </b-card>
   </div>
