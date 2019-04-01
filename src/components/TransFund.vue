@@ -21,6 +21,7 @@
               >Please select an account</option>
             </template>
           </b-form-select>
+
           <b-input
             id="to"
             class="input"
@@ -39,6 +40,7 @@
               <option :value="null" disabled>Please select an account to send to</option>
             </template>
           </b-form-select>
+
           <b-input-group>
             <b-input
               id="amount"
@@ -49,6 +51,7 @@
             />
             <b-button variant="primary" slot="append" class="input" @click="submitForm">Transfer</b-button>
           </b-input-group>
+          
         </b-form>
       </b-card>
     </div>
@@ -78,6 +81,7 @@ export default {
       user: this.userType,
       act: this.action,
       id: this.userId,
+      accid: null,
       emailOrPhone: null,
       transObj: {
         transactionTypeId: this.actType(),

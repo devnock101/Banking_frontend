@@ -1,5 +1,5 @@
 <template>
-  <div class="transreq container">
+  <div class="transreq">
     <b-card
       class="users"
       header="Transactions"
@@ -12,6 +12,7 @@
           <b-table
             ref="table"
             striped
+            :busy.sync="isBusy"
             hover
             outlined
             responsive
@@ -174,19 +175,14 @@ export default {
     transApprove: function(i) {
       var id = this.transItems.splice(i, 1).transactionId;
       let approve =
-        process.env.VUE_APP_TRANS_REQUEST_APPROVE +
-        "?list_transactionID="+
-        1;
+        process.env.VUE_APP_TRANS_REQUEST_APPROVE + "?list_transactionID="+id+"}";
       this.axios.get(approve).then(function() {});
       this.$refs.table.refresh();
     },
     transDecline: function(i) {
       var id = this.transItems.splice(i, 1).transactionId;
       let decline =
-        process.env.VUE_APP_TRANS_REQUEST_DECLINE +
-        "?List_transactionID={" +
-        id +
-        "}";
+        process.env.VUE_APP_TRANS_REQUEST_DECLINE + "?List_transactionID={"+id+"}";
       this.axios.get(decline).then(function() {});
       this.$refs.table.refresh();
     },

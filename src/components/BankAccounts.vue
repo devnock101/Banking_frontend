@@ -12,6 +12,7 @@
           <b-table
             ref="table"
             class="table"
+            :busy.sync="isBusy"
             striped
             hover
             outlined
@@ -243,8 +244,8 @@ export default {
         this.accounts = response.data;
       });
       this.totalRows = this.accounts.length;
-      this.$refs.table.refresh();
       this.toggleBusy();
+      this.$refs.table.refresh();
     },
     getAction: function() {
       if (this.user === "ROLE_TIER2") {
@@ -262,9 +263,11 @@ export default {
       this.isBusy = !this.isBusy;
     },
     accClose: function(i) {
+      this.toggleBusy();
       var id = this.accounts.splice(i, 1).id;
       let closeUrl = process.env.VUE_APP_ACCOUNT + id;
       this.axios.delete(closeUrl, this.head).then(function() {});
+      this.toggleBusy();
       this.$refs.table.refresh();
     },
     updateField: function() {

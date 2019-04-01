@@ -84,7 +84,7 @@ export default {
   name: "support",
     props: {
       userId: {
-          type: String,
+          type: Number,
           required: true
       }
     },
@@ -101,6 +101,7 @@ export default {
       //     otp: null
       //
       // },
+        enteredOtp: null,
         optRequestId: null,
       postBody: {
         userid: this.userId,
@@ -124,7 +125,7 @@ export default {
       console.log("hours " + hours);
       console.log(this.postBody);
           let helpDetails = process.env.VUE_APP_HELP_APPOINT;
-          this.axios.post(helpDetails, this.postBody).then(response =>{});
+          this.axios.post(helpDetails, this.postBody);
     },
     getOtp: function(){
 

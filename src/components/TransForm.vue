@@ -7,18 +7,18 @@
             id="from"
             class="input1"
             type="text"
-            v-model="this.transObj.fromAccountId"
+            v-model="transObj.fromAccountId"
             placeholder="From"
           />
           <b-input
             id="to"
             class="input"
             type="text"
-            v-model="this.transObj.fromAccountId"
+            v-model="transObj.toAccountId"
             placeholder="To"
           />
           <b-form-select
-            v-model="this.transObj.transactionTypeId"
+            v-model="transObj.transactionTypeId"
             class="input2"
             :options="this.transTypes"
           >
@@ -32,7 +32,7 @@
             id="amount"
             class="input"
             type="text"
-            v-model="this.transObj.amount"
+            v-model="transObj.amount"
             placeholder="Amount"
           />
           <b-button variant="primary" class="input" @click="submitForm" slot="append">Transfer</b-button>

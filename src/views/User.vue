@@ -30,7 +30,7 @@
           title="Support"
           v-if="this.userObj.role === 'ROLE_CUSTOMER' || this.userObj.role === 'ROLE_MERCHANT'"
         >
-          <Support/>
+          <Support :userId="this.userObj.userid"/>
         </b-tab>
 <!--        <b-tab title="Logout" no-body>-->
 <!--            <Logout/>-->
@@ -57,8 +57,8 @@ export default {
   data: function() {
     return {
       userObj: {
-        userid: "",
-        role: ""
+        userid: null,
+        role: null
       }
     };
   },
