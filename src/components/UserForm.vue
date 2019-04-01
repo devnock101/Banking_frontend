@@ -7,20 +7,20 @@
     </div>
     <div class="userform container">
       <b-card no-body border-variant="light">
-        <b-form @submit.prevent="checkForm">
+        <b-form>
           <div class="d-flex">
             <b-input
               id="fname"
               class="input1"
               type="text"
-              v-model="this.obj.userObj.firstname"
+              v-model="obj.userObj.firstname"
               placeholder="First Name"
             />
             <b-input
               id="lname"
               class="input2"
               type="text"
-              v-model="this.obj.userObj.lastname"
+              v-model="obj.userObj.lastname"
               placeholder="Last name"
             />
           </div>
@@ -30,11 +30,11 @@
               id="user"
               type="text"
               class="input1"
-              v-model="this.obj.userObj.user"
+              v-model="obj.userObj.user"
               placeholder="Username"
             />
             <b-form-select
-              v-model="this.obj.userObj.usertypeid"
+              v-model="obj.userObj.usertypeid"
               class="input2"
               :options="this.userTypes"
             >
@@ -47,7 +47,7 @@
             <b-input
               v-if="this.userId === null"
               id="pass"
-              v-model="this.obj.userObj.pass"
+              v-model="obj.userObj.pass"
               class="input1"
               type="password"
               name="pass"
@@ -56,7 +56,7 @@
             <b-input
               v-if="this.userId === null"
               id="pass2"
-              v-model="this.obj.userObj.pass2"
+              v-model="pass2"
               type="password"
               name="pass_verify"
               placeholder="Verify Password"
@@ -67,14 +67,14 @@
             <b-input
               name="date_between_field"
               type="date"
-              v-model="this.obj.userObj.dob"
+              v-model="obj.userObj.dob"
               class="input1"
               placeholder=" Date of Birth"
             />
             <b-input
               id="email"
               class="input2"
-              v-model="this.obj.userObj.email"
+              v-model="obj.userObj.email"
               type="email"
               name="email"
               placeholder="Email"
@@ -83,7 +83,7 @@
           <div class="d-flex">
             <b-input
               id="phone"
-              v-model="this.obj.userObj.phone"
+              v-model.number="obj.userObj.phone"
               class="input1"
               type="tel"
               name="phone"
@@ -91,7 +91,7 @@
             />
             <b-input
               id="phone2"
-              v-model="this.obj.userObj.phone2"
+              v-model.number="obj.userObj.phone2"
               type="tel"
               class="input2"
               name="phone2"
@@ -101,7 +101,7 @@
           <div class="d-flex">
             <b-input
               id="street"
-              v-model="this.obj.addressObj.street"
+              v-model="obj.addressObj.street"
               type="text"
               class="input1"
               name="street"
@@ -109,7 +109,7 @@
             />
             <b-input
               id="street2"
-              v-model="this.obj.addressObj.street2"
+              v-model="obj.addressObj.street2"
               type="text"
               class="input2"
               name="street2"
@@ -119,7 +119,7 @@
           <div class="d-flex">
             <b-input
               id="city"
-              v-model="this.obj.addressObj.city"
+              v-model="obj.addressObj.city"
               type="text"
               class="input1"
               name="city"
@@ -127,7 +127,7 @@
             />
             <b-input
               id="state"
-              v-model="this.obj.addressObj.state"
+              v-model="obj.addressObj.state"
               type="text"
               class="input2"
               name="state"
@@ -137,7 +137,7 @@
           <div class="d-flex">
             <b-input
               id="country"
-              v-model="this.obj.addressObj.country"
+              v-model="obj.addressObj.country"
               type="text"
               class="input1"
               name="country"
@@ -145,10 +145,10 @@
             />
             <b-input
               id="zipcode"
-              v-model="this.obj.addressObj.zipcode"
-              type="number"
+              v-model.number="obj.addressObj.zipcode"
+              type="text"
               class="input2"
-              name="street"
+              name="zip"
               placeholder="Zip Code"
             />
           </div>
@@ -187,25 +187,26 @@ export default {
           Account_Balance: "$1200"
         }
       ],
+      pass2: null,
       obj: {
         userObj: {
-          user: "fries1",
-          pass: "mcd",
-          firstname: "mc",
-          lastname: "mcd",
-          email: "mcd1@mail.com",
-          phone: 123457819,
-          phone2: 12356128,
-          dob: "1995-05-6",
-          usertypeid: "ROLE_MERCHANT"
+          user: null,
+          pass: null,
+          firstname: null,
+          lastname: null,
+          email: null,
+          phone: null,
+          phone2: null,
+          dob: null,
+          usertypeid: null
         },
         addressObj: {
-          street: "ST1",
-          street2: "ST2",
-          city: "TEMPE",
-          state: "AZ",
-          country: "US",
-          zipcode: 85282
+          street: null,
+          street2: null,
+          city: null,
+          state: null,
+          country: null,
+          zipcode: null
         }
       },
       temp: {}
@@ -226,31 +227,31 @@ export default {
       if (!this.userid) {
         this.errors.push("First Name required.");
       }
-      if (!this.fname) {
+      if (!this.obj.userObj.firstname) {
         this.errors.push("First Name required.");
       }
-      if (!this.lname) {
+      if (!this.obj.userObj.lastname) {
         this.errors.push("Last Name required.");
       }
-      if (!this.user) {
+      if (!this.obj.userObj.user) {
         this.errors.push("User Name required.");
       }
-      if (!this.email) {
+      if (!this.obj.userObj.email) {
         this.errors.push("Email required.");
       } else if (!this.validEmail(this.email)) {
         this.errors.push("Valid email required.");
       }
-      if (!this.phone) {
+      if (!this.obj.userObj.phone) {
         this.errors.push("Phone required.");
       }
-      if (this.pass !== this.pass2) {
+      if (this.obj.userObj.pass !== this.obj.userObj.pass2) {
         this.errors.push("Passwords don't match.");
       }
       if (!this.errors.length) {
+        this.submitForm();
         return true;
       }
       e.preventDefault();
-      this.submitForm();
     },
     validEmail: function(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

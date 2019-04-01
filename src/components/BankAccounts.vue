@@ -1,5 +1,5 @@
 <template>
-  <div class="bank_accounts container">
+  <div class="bank_accounts">
     <b-card
       class="users"
       header="Bank Accounts"

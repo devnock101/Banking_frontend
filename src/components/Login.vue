@@ -45,7 +45,7 @@ export default {
           username: this.username,
           password: this.password
         })
-        .then(response => {
+        .then(() => {
           // this.resolve = response.data;
           //self.axios.defaults.headers.common["token"] = response.data;
           // this.resolve;

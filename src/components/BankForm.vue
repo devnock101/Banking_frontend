@@ -6,12 +6,12 @@
           id="userid"
           class="input"
           type="text"
-          v-model="this.userObj.userId"
+          v-model.number="userObj.userId"
           placeholder="Customer Account Number"
           v-if="this.userid === null"
         />
         <b-form-select
-          v-model="this.userObj.bankingAccountType"
+          v-model= "userObj.bankingAccountType"
           class="input3"
           :options="this.users"
         >
@@ -40,18 +40,18 @@ export default {
       users: ["CHECKING", "SAVING", "CREDIT"],
       userid: this.id,
       userObj: {
-        userId: 12,
-        bankingAccountType: "CREDIT",
-        balance: 300.06,
-        accountNumber: 103
+        userId: null,
+        bankingAccountType: null,
+        balance: 0,
+        accountNumber: -9999,
+        status: "PENDING"
       }
     };
   },
   methods: {
     submitForm: function() {
       let createUrl = process.env.VUE_APP_ACCOUNT_CREATE;
-      console.log(this.userObj);
-      this.axios.post(createUrl, this.userObj).then(function() {});
+      this.axios.post(createUrl, this.userObj);
       this.$router.push({ name: "user" });
     }
   }
