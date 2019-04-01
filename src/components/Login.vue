@@ -47,7 +47,7 @@ export default {
         })
         .then(response => {
           // this.resolve = response.data;
-          self.axios.defaults.headers.common["token"] = response.data;
+          //self.axios.defaults.headers.common["token"] = response.data;
           // this.resolve;
           self.$router.push({ name: "user" });
         });
