@@ -30,7 +30,7 @@ export default {
   name: "bankform",
   props: {
     id: {
-      type: String,
+      type: Number,
       required: false,
       default: null
     }

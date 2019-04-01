@@ -60,7 +60,7 @@ export default {
   name: "transfund",
   props: {
     userId: {
-      type: String,
+      type: Number,
       required: true
     },
     action: {

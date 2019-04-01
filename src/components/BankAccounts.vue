@@ -129,7 +129,7 @@ export default {
       required: true
     },
     userId: {
-      type: String
+      type: Number
     }
   },
   data: function() {
@@ -301,8 +301,5 @@ export default {
 <style scoped>
 .users {
   margin: 3% auto;
-}
-.btn {
-  margin: 0px 10px 20px;
 }
 </style>

@@ -32,7 +32,10 @@
         >
           <Support/>
         </b-tab>
-        <!-- <b-tab title="Logout" no-body></b-tab> -->
+<!--        <b-tab title="Logout" no-body>-->
+<!--            <Logout/>-->
+<!--        </b-tab>-->
+<!--        <b-botton>Hello</b-botton>-->
       </b-tabs>
     </b-card>
   </div>

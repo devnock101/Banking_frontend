@@ -168,7 +168,7 @@ export default {
       required: true
     },
     id: {
-      type: String,
+      type: Number,
       required: false
     }
   },
@@ -214,13 +214,16 @@ export default {
   },
   methods: {
     getDetails: function() {
-      let userDetails = process.env.VUE_APP_USER + this.userid;
-      this.axios.get(userDetails).then(response => {
-        this.obj = response.body.user;
-      });
-      this.temp = { ...this.obj.userObj, ...this.obj.addressObj };
-      this.details = [];
-      this.details.push(this.temp);
+      if(this.userId)
+      {
+        let userDetails = process.env.VUE_APP_USER + this.userid;
+        this.axios.get(userDetails).then(response => {
+          this.obj = response.body.user;
+        });
+        this.temp = { ...this.obj.userObj, ...this.obj.addressObj };
+        this.details = [];
+        this.details.push(this.temp);
+      }
     },
     checkForm: function(e) {
       this.errors = [];
