@@ -38,7 +38,7 @@
 <!--        </b-tab>-->
 <!--        <b-botton>Hello</b-botton>-->
         <template slot="tabs">
-          <b-nav-item href="#" @click="logout">Logout</b-nav-item>
+          <b-nav-item @click="logout">Logout</b-nav-item>
         </template>
       </b-tabs>
     </b-card>
