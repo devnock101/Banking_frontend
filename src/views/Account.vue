@@ -1,7 +1,7 @@
 <template>
   <div class="account container">
     <AccDetails :userId="this.id"/>
-    <TransList :account="this.accountid" v-if="this.usertype !== 'ROLE_TIER3'"/>
+<!--    <TransList :account="this.accountid" v-if="this.usertype !== 'ROLE_TIER3'"/>-->
     <Log :userid="this.id" v-if="this.usertype === 'ROLE_TIER3'"/>
   </div>
 </template>
@@ -20,11 +20,11 @@ export default {
   },
   props: {
     userid: {
-      type: String,
+      type: Number,
       required: true
     },
     accountid: {
-      type: String
+      type: Number
     },
     usertype: {
       type: String,

@@ -114,11 +114,7 @@ export default {
   methods: {
     getLog: function() {
       this.toggleBusy();
-      let logUrl =
-        process.env.VUE_APP_USER +
-        this.id +
-        process.env.VUE_APP_USER_LOG +
-        "50";
+      let logUrl = process.env.VUE_APP_USER_LOG + this.id ;
       this.axios.get(logUrl).then(response => {
         this.logData = response.data;
         //CHANGED THIS
