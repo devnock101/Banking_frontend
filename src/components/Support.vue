@@ -40,11 +40,11 @@
           <b-row>
             <b-col>
               <label>Enter Date</label>
-              <b-form-input type="date" v-model="postBody.appointmentDate"></b-form-input>
+              <b-form-input type="date" v-model="postBody.appointmentdate"></b-form-input>
             </b-col>
             <b-col>
               <label>Enter Time</label>
-              <b-form-input type="time" v-model="postBody.appointmentTime"></b-form-input>
+              <b-form-input type="time" v-model="postBody.appointmenttime"></b-form-input>
             </b-col>
           </b-row>
         </b-container>
@@ -59,16 +59,13 @@
                         </div>
         </div-->
         <br>
-        <div>
-          <b-col>
-            <b-button @click="this.getOtp" variant="primary"> Get Bank Statement</b-button>
-          </b-col>
-          <b-col>
-            <input type="number" v-model="enteredOtp" id="pass" minlength="4" required>
-          </b-col>
-          <b-col>
-            <b-button @click="this.submitOtp" variant="primary">Submit OTP</b-button>
-          </b-col>
+          <p>Getting an appointment requires OTP. Please click on Request Appointment and submit otp received on your email</p>
+        <div class="userform container d-flex">
+
+            <b-button class="input1" @click="this.getOtp" variant="primary"> Request Appointment</b-button>
+            <input class="input3" type="text" v-model="enteredOtp" id="pass" minlength="4" required>
+            <b-button class="input2" @click="this.submitOtp" variant="primary">Submit OTP</b-button>
+            <div class="simple-keyboard"></div>
         </div>
 
 
@@ -85,16 +82,28 @@
 <script>
 export default {
   name: "support",
+    props: {
+      userId: {
+          type: String,
+          required: true
+      }
+    },
   data() {
     return {
-      otpDetails:{
-        optRequestId: '',
-        otp: '',
-        userId: '',
-        status: ''
-      },
+      // otpDetails:{
+      //     createBy: null,
+      //     lastModifiedBy: null,
+      //     createdAt: null,
+      //     lastModifiedAt: null,
+      //     optRequestId: null,
+      //     userId: null,
+      //     status: null,
+      //     otp: null
+      //
+      // },
+        optRequestId: null,
       postBody: {
-        userid: '',
+        userid: this.userId,
         appointmentdate: '',
         appointmenttime: '',
         reason: '',
@@ -108,27 +117,28 @@ export default {
   },
   methods: {
     postAppointment() {
-      console.log(this.postBody.appointmentTime);
-      console.log(this.postBody.appointmentDate);
-      let hours = parseInt(this.postBody.appointmentTime.split(":")[0], 10);
+      console.log(this.postBody.appointmenttime);
+      console.log(this.postBody.appointmentdate);
+      let hours = parseInt(this.postBody.appointmenttime.split(":")[0], 10);
 
       console.log("hours " + hours);
+      console.log(this.postBody);
           let helpDetails = process.env.VUE_APP_HELP_APPOINT;
-          this.axios.post(helpDetails, this.postBody).then(function() {});
+          this.axios.post(helpDetails, this.postBody).then(response =>{});
     },
     getOtp: function(){
 
       let Url = process.env.VUE_APP_OTP;
-      this.axios.get(Url).then(function(response){
-          this.otpDetails = response.data;
+      this.axios.get(Url).then(response => {
+          this.optRequestId = response.data;
       });
 
     },
     submitOtp: function(){
-
-      let otpUrl = process.env.VUE_APP_OTP + this.otpDetails.optRequestId + "/" + this.enteredOtp;
-      this.axios.get(otpUrl).then(function(response){
-          if(response == true){
+        console.log("OptRequestId" + this.optRequestId);
+      let otpUrl = process.env.VUE_APP_OTP + "/" + this.optRequestId + "/" + this.enteredOtp;
+      this.axios.get(otpUrl).then(response =>{
+          if(response.data == true){
               console.log("Appointment validated")
             this.postAppointment();
 
@@ -141,4 +151,17 @@ export default {
 </script>
 
 <style scoped>
+    .userform {
+        width: 60%;
+        margin: 3% auto;
+    }
+    .input1 {
+        margin: 7px 5px 7px 0px;
+    }
+    .input2 {
+        margin: 7px 0px 7px 5px;
+    }
+    .input3 {
+        margin: 7px auto;
+    }
 </style>
