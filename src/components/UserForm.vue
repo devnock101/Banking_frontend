@@ -216,13 +216,18 @@ export default {
     getDetails: function() {
       if(this.userId)
       {
-        let userDetails = process.env.VUE_APP_USER + this.userid;
+        let userDetails = process.env.VUE_APP_USER + this.userId;
         this.axios.get(userDetails).then(response => {
-          this.obj = response.body.user;
+          this.obj.userObj = response.data;
+          if(this.obj.userObj.usertypeid === "ROLE_CUSTOMER") {
+            this.obj.userObj.usertypeid = "CUSTOMER";
+          } else if (this.obj.userObj.usertypeid === "ROLE_MERCHANT") {
+            this.obj.userObj.usertypeid = "MERCHANT";
+          }
+          this.temp = { ...this.obj.userObj, ...this.obj.addressObj };
+          this.details = [];
+          this.details.push(this.temp);
         });
-        this.temp = { ...this.obj.userObj, ...this.obj.addressObj };
-        this.details = [];
-        this.details.push(this.temp);
       }
     },
     checkForm: function(e) {

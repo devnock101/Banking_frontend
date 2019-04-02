@@ -44,24 +44,24 @@ export default {
     return {
       action: this.$route.params.action,
       userType: this.$route.params.user,
-      userId: this.$route.params.id
+      userId: this.$route.params.userid
     };
   },
   methods: {
     userList: function(type) {
-      if (type === "TIER2") {
+      if (type === "ROLE_TIER2") {
         return ["CUSTOMER", "MERCHANT"];
-      } else if (type === "TIER3") {
+      } else if (type === "ROLE_TIER3") {
         return ["TIER1", "TIER2"];
       }
     },
     userTest: function() {
       return (
         this.action === "transaction" &&
-        (this.userType === "TIER1" ||
-          this.userType === "TIER2" ||
-          this.userType === "CUSTOMER" ||
-          this.userType === "MERCHANT")
+        (this.userType === "ROLE_TIER1" ||
+          this.userType === "ROLE_TIER2" ||
+          this.userType === "ROLE_CUSTOMER" ||
+          this.userType === "ROLE_MERCHANT")
       );
     }
   }
