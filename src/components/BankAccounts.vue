@@ -279,7 +279,8 @@ export default {
       return field;
     },
     loadAccount: function(item) {
-      this.$router.push(this.forUser(item));
+      if(this.userType === "ROLE_TIER1" || this.userType === "ROLE_TIER2")
+      {this.$router.push(this.forUser(item));}
     },
     forUser: function(item) {
       if (
