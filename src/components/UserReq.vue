@@ -1,11 +1,5 @@
 <template>
   <div class="accreq">
-<!--    <div>-->
-<!--      <b-card class="container">-->
-<!--        <b-card-text>All Requests Taken Care Of!</b-card-text>-->
-<!--        <b-button @click="getRequests" variant="primary">Refresh</b-button>-->
-<!--      </b-card>-->
-<!--    </div>-->
     <div>
       <b-table
         ref="table"
@@ -53,9 +47,13 @@ export default {
       currentPage: 1,
       totalRows: "",
       accItems: [
-        {
-          dummy : 1
-        }
+          {
+              isActive: true,
+              id: 1,
+              age: 40,
+              first_name: "Dickerson",
+              last_name: "Macdonald"
+          }
       ]
     };
   },
