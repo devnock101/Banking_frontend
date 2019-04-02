@@ -8,7 +8,7 @@
     <User
       :users="this.userList(this.userType)"
       :id="null"
-      v-if="(this.action === 'employee') && this.userType === 'ROLE_TIER3'"
+      v-if="(this.action === 'employee') && this.userType === 'ROLE_ADMIN'"
     />
     <User
       :users="this.userList(this.userType)"
@@ -18,7 +18,7 @@
     <User
       :users="this.userList(this.userType)"
       :id="this.userId"
-      v-if="(this.action === 'employee_mod') && this.userType === 'ROLE_TIER3'"
+      v-if="(this.action === 'employee_mod') && this.userType === 'ROLE_ADMIN'"
     />
     <Trans v-if="this.userTest()"/>
     <Move :userId="this.userId" v-if="(this.action === 'move' && this.userType === 'ROLE_CUSTOMER')"/>
