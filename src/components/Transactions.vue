@@ -60,8 +60,8 @@ export default {
       let transList = process.env.VUE_APP_TRANS_LIST;
       this.axios.get(transList).then(response => {
         this.transaction = response.data;
+        this.totalRows = this.transaction.length;
       });
-      this.totalRows = this.transaction.length;
       // this.$refs.table.refresh();
       this.toggleBusy();
     },
