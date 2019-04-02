@@ -79,6 +79,7 @@ export default {
       this.axios.get(logOut).then(()=>{
         this.$router.push({ path: "/" });
       });
+      this.$router.push({ path: "/" });
     }
   }
 };
