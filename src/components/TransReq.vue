@@ -159,8 +159,9 @@ export default {
       let transList = process.env.VUE_APP_TRANS_REQUEST_LIST + "PENDING";
       this.axios.get(transList).then(response => {
         this.transItems = response.data;
+        this.totalRows = this.transItems.length;
       });
-      this.totalRows = this.transItems.length;
+
       // this.$refs.table.refresh();
       this.toggleBusy();
     },
@@ -177,7 +178,7 @@ export default {
       this.transItems.splice(i,1);
       let approve =
         process.env.VUE_APP_TRANS_REQUEST_APPROVE + "?list_transactionID="+id;
-      this.axios.put(approve).then(function() {});
+      this.axios.get(approve).then(function() {});
       // this.$refs.table.refresh();
     },
     transDecline: function(i) {
@@ -185,7 +186,7 @@ export default {
       this.transItems.splice(i,1);
       let decline =
         process.env.VUE_APP_TRANS_REQUEST_DECLINE + "?list_transactionID="+id;
-      this.axios.put(decline).then(function() {});
+      this.axios.get(decline).then(function() {});
       // this.$refs.table.refresh();
     },
     userTest: function() {

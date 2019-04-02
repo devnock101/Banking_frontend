@@ -32,7 +32,10 @@
 export default {
   name: "bankform",
   mounted: function(){
-    this.getUsers();
+    if(this.userid === null)
+    {
+      this.getUsers();
+    }
   },
   props: {
     id: {

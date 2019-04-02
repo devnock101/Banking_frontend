@@ -161,70 +161,6 @@ export default {
           usertypeid: "CUSTOMER",
           first_name: "Dickerson",
           last_name: "Macdonald"
-        },
-        {
-          isActive: false,
-          userid: "2",
-          age: 21,
-          usertypeid: "MERCHANT",
-          first_name: "Larsen",
-          last_name: "Shaw"
-        },
-        {
-          isActive: false,
-          userid: "3",
-          age: 89,
-          usertypeid: "CUSTOMER",
-          first_name: "Geneva",
-          last_name: "Wilson"
-        },
-        {
-          isActive: true,
-          userid: "4",
-          age: 38,
-          usertypeid: "MERCHANT",
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          userid: "5",
-          age: 38,
-          usertypeid: "CUSTOMER",
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          userid: "6",
-          age: 38,
-          usertypeid: "CUSTOMER",
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          userid: "7",
-          age: 38,
-          usertypeid: "MERCHANT",
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          userid: "8",
-          age: 38,
-          usertypeid: "CUSTOMER",
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          userid: "9",
-          age: 38,
-          usertypeid: "MERCHANT",
-          first_name: "Jami",
-          last_name: "Carney"
         }
       ]
     };
@@ -243,8 +179,8 @@ export default {
       this.axios.get(this.accountUrl, this.head).then(response => {
         this.accounts = response.data;
         //console.log(this.accounts);
+        this.totalRows = this.accounts.length;
       });
-      this.totalRows = this.accounts.length;
       this.toggleBusy();
       // this.$refs.table.refresh();
     },

@@ -80,70 +80,6 @@ export default {
           usertypeid: "ROLE_TIER2",
           first_name: "Dickerson",
           last_name: "Macdonald"
-        },
-        {
-          isActive: false,
-          user_id: 2,
-          age: 21,
-          usertypeid: "ROLE_TIER1",
-          first_name: "Larsen",
-          last_name: "Shaw"
-        },
-        {
-          isActive: false,
-          user_id: 3,
-          age: 89,
-          usertypeid: "ROLE_TIER1",
-          first_name: "Geneva",
-          last_name: "Wilson"
-        },
-        {
-          isActive: true,
-          user_id: 4,
-          age: 38,
-          usertypeid: "ROLE_TIER2",
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          user_id: 5,
-          age: 38,
-          usertypeid: "ROLE_TIER1",
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          user_id: 6,
-          age: 38,
-          usertypeid: "ROLE_TIER1",
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          user_id: 7,
-          age: 38,
-          usertypeid: "ROLE_TIER2",
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          user_id: 8,
-          age: 38,
-          usertypeid: "ROLE_TIER1",
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          user_id: 9,
-          age: 38,
-          usertypeid: "ROLE_TIER1",
-          first_name: "Jami",
-          last_name: "Carney"
         }
       ]
     };
@@ -154,9 +90,10 @@ export default {
       let accountList = process.env.VUE_APP_EMPLY_LIST;
       this.axios.get(accountList).then(response => {
         this.accounts = response.data;
+          this.totalRows = this.accounts.length;
       });
-      this.totalRows = this.accounts.length;
-      this.$refs.table.refresh();
+
+      // this.$refs.table.refresh();
       this.toggleBusy();
     },
     toggleBusy: function() {
@@ -166,7 +103,7 @@ export default {
       var id = this.accounts.splice(i, 1).id;
       let deleteUrl = process.env.VUE_APP_USER + id;
       this.axios.delete(deleteUrl).then(function() {});
-      this.$refs.table.refresh();
+      // this.$refs.table.refresh();
     },
     updateField: function() {
       var field = Object.keys(this.accounts[0]);

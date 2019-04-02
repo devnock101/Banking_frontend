@@ -82,8 +82,8 @@ export default {
       });
     },
     logout: function() {
-      let logOut = process.env.VUE_APP_LOGOUT;
-      this.axios.get(logOut).then(function() {});
+      //let logOut = process.env.VUE_APP_LOGOUT;
+      //this.axios.get(logOut);
       this.$router.push({ path: "/" }); //Add router guard here
     }
   }
