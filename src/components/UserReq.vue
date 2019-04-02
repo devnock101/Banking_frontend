@@ -12,7 +12,7 @@
       :items="accItems"
     >
       <template slot="Approve" slot-scope="data">
-        <b-button variant="primary" @click="Approve(data.index)">Approve</b-button>
+        <b-button variant="primary" @click="accApprove(data.index)">Approve</b-button>
       </template>
       <template slot="Decline" slot-scope="data">
         <b-button variant="primary" @click="accDecline(data.index)">Decline</b-button>
