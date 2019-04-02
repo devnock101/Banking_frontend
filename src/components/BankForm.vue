@@ -2,14 +2,17 @@
   <div class="userform">
     <b-form @submit.prevent="submitForm">
       <b-input-group>
-        <b-input
+        <b-form-select
           id="userid"
           class="input"
-          type="text"
           v-model.number="userObj.userId"
-          placeholder="Customer Account Number"
+          :options = "this.userIdList"
           v-if="this.userid === null"
-        />
+        >
+          <template slot="first">
+            <option :value="null" disabled>Please select a user</option>
+          </template>
+        </b-form-select>
         <b-form-select
           v-model= "userObj.bankingAccountType"
           class="input3"
@@ -28,6 +31,9 @@
 <script>
 export default {
   name: "bankform",
+  mounted: function(){
+    this.getUsers();
+  },
   props: {
     id: {
       type: Number,
@@ -39,6 +45,8 @@ export default {
     return {
       users: ["CHECKING", "SAVING", "CREDIT"],
       userid: this.id,
+      userList: [],
+      userIdList: [],
       userObj: {
         userId: null,
         bankingAccountType: null,
@@ -49,6 +57,16 @@ export default {
     };
   },
   methods: {
+    getUsers: function()
+    {
+      let usersUrl = process.env.VUE_APP_CUSTOM_LIST;
+      this.axios.get(usersUrl).then(response => {
+        this.userList = response.data;
+        for( let i = 0; i < this.userList.length; i++){
+          this.userIdList.push(this.userList[i].userid);
+        }
+      });
+    },
     submitForm: function() {
       let createUrl = process.env.VUE_APP_ACCOUNT_CREATE;
       this.axios.post(createUrl, this.userObj);
