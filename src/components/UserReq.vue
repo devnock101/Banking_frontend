@@ -127,7 +127,7 @@ export default {
         this.accItems = response.data;
       });
       this.totalRows = this.accItems.length;
-      this.$refs.table.refresh();
+      // this.$refs.table.refresh();
     },
     updateField: function() {
       var field = Object.keys(this.accItems[0]);
@@ -135,16 +135,18 @@ export default {
       return field;
     },
     accApprove: function(i) {
-      var id = this.accItems.splice(i, 1).bankingAccountId;
+      var id = this.accItems[i].bankingAccountId;
+      this.accItems.splice(i,1);
       let approve = process.env.VUE_APP_ACC_REQ_APPROVE + id;
       this.axios.put(approve).then(function() {});
-      this.$refs.table.refresh();
+      //this.$refs.table.refresh();
     },
     accDecline: function(i) {
-      var id = this.accItems.splice(i, 1).bankingAccountId;
+      var id = this.accItems[i].bankingAccountId;
+      this.accItems.splice(i,1);
       let decline = process.env.VUE_APP_ACC_REQ_DECLINE + id;
       this.axios.put(decline).then(function() {});
-      this.$refs.table.refresh();
+      //this.$refs.table.refresh();
     }
   }
 };

@@ -161,7 +161,7 @@ export default {
         this.transItems = response.data;
       });
       this.totalRows = this.transItems.length;
-      this.$refs.table.refresh();
+      // this.$refs.table.refresh();
       this.toggleBusy();
     },
     toggleBusy: function() {
@@ -173,18 +173,20 @@ export default {
       return field;
     },
     transApprove: function(i) {
-      var id = this.transItems.splice(i, 1).transactionId;
+      var id = this.transItems[i].transactionId;
+      this.transItems.splice(i,1);
       let approve =
         process.env.VUE_APP_TRANS_REQUEST_APPROVE + "?list_transactionID="+id+"}";
-      this.axios.get(approve).then(function() {});
-      this.$refs.table.refresh();
+      this.axios.put(approve).then(function() {});
+      // this.$refs.table.refresh();
     },
     transDecline: function(i) {
-      var id = this.transItems.splice(i, 1).transactionId;
+      var id = this.transItems[i].transactionId;
+      this.transItems.splice(i,1);
       let decline =
         process.env.VUE_APP_TRANS_REQUEST_DECLINE + "?List_transactionID={"+id+"}";
-      this.axios.get(decline).then(function() {});
-      this.$refs.table.refresh();
+      this.axios.put(decline).then(function() {});
+      // this.$refs.table.refresh();
     },
     userTest: function() {
       return (
