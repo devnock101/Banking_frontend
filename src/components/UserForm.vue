@@ -220,9 +220,9 @@ export default {
         this.axios.get(userDetails).then(response => {
           this.obj.userObj = response.data;
           if(this.obj.userObj.usertypeid === "ROLE_CUSTOMER") {
-            this.obj.userObj.usertypeid = "CUSTOMER";
+            this.obj.userObj.usertypeid = "ROLE_CUSTOMER";
           } else if (this.obj.userObj.usertypeid === "ROLE_MERCHANT") {
-            this.obj.userObj.usertypeid = "MERCHANT";
+            this.obj.userObj.usertypeid = "ROLE_MERCHANT";
           }
           this.temp = { ...this.obj.userObj, ...this.obj.addressObj };
           this.details = [];

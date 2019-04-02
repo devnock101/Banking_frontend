@@ -176,7 +176,7 @@ export default {
       var id = this.transItems[i].transactionId;
       this.transItems.splice(i,1);
       let approve =
-        process.env.VUE_APP_TRANS_REQUEST_APPROVE + "?list_transactionID="+id+"}";
+        process.env.VUE_APP_TRANS_REQUEST_APPROVE + "?list_transactionID="+id;
       this.axios.put(approve).then(function() {});
       // this.$refs.table.refresh();
     },
@@ -184,7 +184,7 @@ export default {
       var id = this.transItems[i].transactionId;
       this.transItems.splice(i,1);
       let decline =
-        process.env.VUE_APP_TRANS_REQUEST_DECLINE + "?List_transactionID={"+id+"}";
+        process.env.VUE_APP_TRANS_REQUEST_DECLINE + "?list_transactionID="+id;
       this.axios.put(decline).then(function() {});
       // this.$refs.table.refresh();
     },

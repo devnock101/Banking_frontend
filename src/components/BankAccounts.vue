@@ -141,7 +141,7 @@ export default {
       id: this.userId,
       user: this.userType,
       userid: null,
-      users: ["CUSTOMER", "MERCHANT"],
+      users: ["ROLE_CUSTOMER", "ROLE_MERCHANT"],
       action_user_new: null,
       action_user_mod: null,
       action_account: null,

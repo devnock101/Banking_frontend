@@ -68,7 +68,7 @@ export default {
       isBusy: false,
       action: "employee",
       user: "ROLE_ADMIN",
-      users: ["TIER1", "TIER2"],
+      users: ["ROLE_TIER1", "ROLE_TIER2"],
       perPage: 8,
       currentPage: 1,
       totalRows: "",
