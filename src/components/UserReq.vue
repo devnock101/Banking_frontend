@@ -61,7 +61,6 @@ export default {
     getRequests: function() {
       let accList = process.env.VUE_APP_ACC_REQ;
       this.axios.get(accList).then(response => {
-        console.log(response.data);
         if(response.data !== [])
         {
           this.accItems = response.data;
