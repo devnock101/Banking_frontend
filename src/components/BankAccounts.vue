@@ -242,6 +242,7 @@ export default {
       this.toggleBusy();
       this.axios.get(this.accountUrl, this.head).then(response => {
         this.accounts = response.data;
+        console.log(this.accounts);
       });
       this.totalRows = this.accounts.length;
       this.toggleBusy();
@@ -294,7 +295,7 @@ export default {
       } else {
         return {
           name: "account",
-          params: { userid: item.userid, usertype: item.usertypeid }
+          params: { userid: item.userId, usertype: item.usertypeid }
         };
       }
     }

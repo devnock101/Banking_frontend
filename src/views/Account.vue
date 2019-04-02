@@ -1,7 +1,7 @@
 <template>
   <div class="account container">
     <AccDetails :userId="this.id"/>
-<!--    <TransList :account="this.accountid" v-if="this.usertype !== 'ROLE_TIER3'"/>-->
+    <TransList :account="this.accountid" v-if="this.usertype !== 'ROLE_ADMIN'"/>
     <Log :userid="this.id" v-if="this.usertype === 'ROLE_ADMIN'"/>
   </div>
 </template>

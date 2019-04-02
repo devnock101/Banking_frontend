@@ -67,7 +67,7 @@ export default {
     return {
       isBusy: false,
       action: "employee",
-      user: "TIER3",
+      user: "ROLE_ADMIN",
       users: ["TIER1", "TIER2"],
       perPage: 8,
       currentPage: 1,
