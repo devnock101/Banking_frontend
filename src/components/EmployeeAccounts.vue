@@ -22,13 +22,13 @@
             :items="accounts"
             @row-clicked="loadAccount"
           >
-            <template slot="Modify" slot-scope="data">
-              <b-link
-                :to="{name: 'create', params: { action: 'employee_mod', user: 'ROLE_ADMIN', id: data.item.userid} }"
-              >
-                <b-button variant="primary">Modify</b-button>
-              </b-link>
-            </template>
+<!--            <template slot="Modify" slot-scope="data">-->
+<!--              <b-link-->
+<!--                :to="{name: 'create', params: { action: 'employee_mod', user: 'ROLE_ADMIN', id: data.item.userId} }"-->
+<!--              >-->
+<!--                <b-button variant="primary">Modify</b-button>-->
+<!--              </b-link>-->
+<!--            </template>-->
             <template slot="Delete" slot-scope="data">
               <b-button variant="primary" @click="accDelete(data.index)">Delete</b-button>
             </template>
@@ -69,79 +69,79 @@ export default {
       action: "employee",
       user: "TIER3",
       users: ["TIER1", "TIER2"],
-      perPage: 5,
+      perPage: 8,
       currentPage: 1,
       totalRows: "",
       accounts: [
         {
           isActive: true,
-          user_id: "1",
+          user_id: 1,
           age: 40,
-          usertypeid: "TIER2",
+          usertypeid: "ROLE_TIER2",
           first_name: "Dickerson",
           last_name: "Macdonald"
         },
         {
           isActive: false,
-          user_id: "2",
+          user_id: 2,
           age: 21,
-          usertypeid: "TIER1",
+          usertypeid: "ROLE_TIER1",
           first_name: "Larsen",
           last_name: "Shaw"
         },
         {
           isActive: false,
-          user_id: "3",
+          user_id: 3,
           age: 89,
-          usertypeid: "TIER1",
+          usertypeid: "ROLE_TIER1",
           first_name: "Geneva",
           last_name: "Wilson"
         },
         {
           isActive: true,
-          user_id: "4",
+          user_id: 4,
           age: 38,
-          usertypeid: "TIER2",
+          usertypeid: "ROLE_TIER2",
           first_name: "Jami",
           last_name: "Carney"
         },
         {
           isActive: true,
-          user_id: "5",
+          user_id: 5,
           age: 38,
-          usertypeid: "TIER1",
+          usertypeid: "ROLE_TIER1",
           first_name: "Jami",
           last_name: "Carney"
         },
         {
           isActive: true,
-          user_id: "6",
+          user_id: 6,
           age: 38,
-          usertypeid: "TIER1",
+          usertypeid: "ROLE_TIER1",
           first_name: "Jami",
           last_name: "Carney"
         },
         {
           isActive: true,
-          user_id: "7",
+          user_id: 7,
           age: 38,
-          usertypeid: "TIER2",
+          usertypeid: "ROLE_TIER2",
           first_name: "Jami",
           last_name: "Carney"
         },
         {
           isActive: true,
-          user_id: "8",
+          user_id: 8,
           age: 38,
-          usertypeid: "TIER1",
+          usertypeid: "ROLE_TIER1",
           first_name: "Jami",
           last_name: "Carney"
         },
         {
           isActive: true,
-          user_id: "9",
+          user_id: 9,
           age: 38,
-          usertypeid: "TIER1",
+          usertypeid: "ROLE_TIER1",
           first_name: "Jami",
           last_name: "Carney"
         }
@@ -154,7 +154,6 @@ export default {
       let accountList = process.env.VUE_APP_EMPLY_LIST;
       this.axios.get(accountList).then(response => {
         this.accounts = response.data;
-        //CHANGED THIS
       });
       this.totalRows = this.accounts.length;
       this.$refs.table.refresh();
@@ -171,7 +170,8 @@ export default {
     },
     updateField: function() {
       var field = Object.keys(this.accounts[0]);
-      field.push("Modify", "Delete");
+      // field.push("Modify", "Delete");
+      field.push("Delete");
       return field;
     },
     loadAccount: function(item) {
