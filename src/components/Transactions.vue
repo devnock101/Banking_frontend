@@ -50,62 +50,6 @@ export default {
           age: 40,
           first_name: "Dickerson",
           last_name: "Macdonald"
-        },
-        {
-          isActive: false,
-          id: 2,
-          age: 21,
-          first_name: "Larsen",
-          last_name: "Shaw"
-        },
-        {
-          isActive: false,
-          id: 3,
-          age: 89,
-          first_name: "Geneva",
-          last_name: "Wilson"
-        },
-        {
-          isActive: true,
-          id: 4,
-          age: 38,
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          id: 5,
-          age: 38,
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          id: 6,
-          age: 38,
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          id: 7,
-          age: 38,
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          id: 8,
-          age: 38,
-          first_name: "Jami",
-          last_name: "Carney"
-        },
-        {
-          isActive: true,
-          id: 9,
-          age: 38,
-          first_name: "Jami",
-          last_name: "Carney"
         }
       ]
     };

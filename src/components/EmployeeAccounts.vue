@@ -22,13 +22,13 @@
             :items="accounts"
             @row-clicked="loadAccount"
           >
-<!--            <template slot="Modify" slot-scope="data">-->
-<!--              <b-link-->
-<!--                :to="{name: 'create', params: { action: 'employee_mod', user: 'ROLE_ADMIN', id: data.item.userId} }"-->
-<!--              >-->
-<!--                <b-button variant="primary">Modify</b-button>-->
-<!--              </b-link>-->
-<!--            </template>-->
+            <template slot="Modify" slot-scope="data">
+              <b-link
+                :to="{name: 'create', params: { action: 'employee_mod', user: 'ROLE_ADMIN', id: data.item.userId} }"
+              >
+                <b-button variant="primary">Modify</b-button>
+              </b-link>
+            </template>
             <template slot="Delete" slot-scope="data">
               <b-button variant="primary" @click="accDelete(data.index)">Delete</b-button>
             </template>
@@ -90,9 +90,8 @@ export default {
       let accountList = process.env.VUE_APP_EMPLY_LIST;
       this.axios.get(accountList).then(response => {
         this.accounts = response.data;
-          this.totalRows = this.accounts.length;
+        this.totalRows = this.accounts.length;
       });
-
       // this.$refs.table.refresh();
       this.toggleBusy();
     },
@@ -107,14 +106,14 @@ export default {
     },
     updateField: function() {
       var field = Object.keys(this.accounts[0]);
-      // field.push("Modify", "Delete");
-      field.push("Delete");
+      field.push("Modify", "Delete");
+      // field.push("Delete");
       return field;
     },
     loadAccount: function(item) {
-      this.$router.push({
+        this.$router.push({
         name: "account",
-        params: { userid: item.user_id, usertype: this.user }
+        params: { userid: item.userid, usertype: this.user }
       });
     }
   }

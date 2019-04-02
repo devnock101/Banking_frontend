@@ -33,7 +33,6 @@ export default {
     return {
       username: "",
       password: ""
-      // resolve: ""
     };
   },
   methods: {
@@ -46,9 +45,6 @@ export default {
           password: this.password
         })
         .then(() => {
-          // this.resolve = response.data;
-          //self.axios.defaults.headers.common["token"] = response.data;
-          // this.resolve;
           self.$router.push({ name: "user" });
         });
     }
