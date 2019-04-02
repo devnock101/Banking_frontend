@@ -99,7 +99,8 @@ export default {
       this.isBusy = !this.isBusy;
     },
     accDelete: function(i) {
-      var id = this.accounts.splice(i, 1).id;
+      var id = this.accounts[i];
+      this.accounts.splice(i, 1).id;
       let deleteUrl = process.env.VUE_APP_USER + id;
       this.axios.delete(deleteUrl).then(function() {});
       // this.$refs.table.refresh();
