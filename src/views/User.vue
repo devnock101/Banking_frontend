@@ -2,7 +2,6 @@
   <div>
     <b-card no-body>
       <b-tabs card pills content-class="mt-3">
-<!--        <b-button @click="logout" variant="primary">Logout</b-button>-->
         <b-tab
           title="Details"
           v-if="this.userObj.role === 'ROLE_CUSTOMER' || this.userObj.role === 'ROLE_MERCHANT'"
@@ -10,8 +9,8 @@
           <AccDetails :userId="this.userObj.userid"/>
         </b-tab>
         <b-tab
-          title="Accounts"
-          v-if="this.userObj.role === 'ROLE_TIER1' || 
+                title="Accounts"
+                v-if="this.userObj.role === 'ROLE_TIER1' ||
                         this.userObj.role === 'ROLE_TIER2' || 
                         this.userObj.role === 'ROLE_CUSTOMER' || 
                         this.userObj.role === 'ROLE_MERCHANT'"
@@ -33,10 +32,6 @@
         >
           <Support :userId="this.userObj.userid"/>
         </b-tab>
-<!--        <b-tab title="Logout" no-body>-->
-<!--            <Logout/>-->
-<!--        </b-tab>-->
-<!--        <b-botton>Hello</b-botton>-->
         <template slot="tabs">
           <b-nav-item @click="logout">Logout</b-nav-item>
         </template>
@@ -50,7 +45,6 @@ import AccDetails from "@/components/AccDetails.vue";
 import EmplyAccounts from "@/components/EmployeeAccounts.vue";
 import BankAccounts from "@/components/BankAccounts.vue";
 import TransReq from "@/components/TransReq.vue";
-// import Logout from "@/components/Logout.vue";
 import Support from "@/components/Support.vue";
 
 export default {
@@ -71,7 +65,6 @@ export default {
     EmplyAccounts,
     BankAccounts,
     TransReq,
-    // Logout,
     Support
   },
   methods: {

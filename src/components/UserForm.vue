@@ -219,11 +219,6 @@ export default {
         let userDetails = process.env.VUE_APP_USER + this.userId;
         this.axios.get(userDetails).then(response => {
           this.obj.userObj = response.data;
-          if(this.obj.userObj.usertypeid === "ROLE_CUSTOMER") {
-            this.obj.userObj.usertypeid = "ROLE_CUSTOMER";
-          } else if (this.obj.userObj.usertypeid === "ROLE_MERCHANT") {
-            this.obj.userObj.usertypeid = "ROLE_MERCHANT";
-          }
           this.temp = { ...this.obj.userObj, ...this.obj.addressObj };
           this.details = [];
           this.details.push(this.temp);
@@ -267,8 +262,7 @@ export default {
     },
     submitForm: function() {
       let createUrl = process.env.VUE_APP_USER_CREATE;
-      this.axios.post(createUrl, this.obj).then(function() {});
-      this.$router.push({ name: "user" });
+      this.axios.post(createUrl, this.obj).then(() => {this.$router.push({ name: "user" });});
     }
   }
 };

@@ -59,8 +59,7 @@ export default {
   methods: {
     submitForm: function() {
       let createUrl = process.env.VUE_APP_TRANS_CREATE;
-      this.axios.post(createUrl, this.transObj).then(function() {});
-      this.$router.push({ name: "user" });
+      this.axios.post(createUrl, this.transObj).then(() => {this.$router.push({ name: "user" });});
     }
   }
 };

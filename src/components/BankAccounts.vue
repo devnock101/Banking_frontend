@@ -203,7 +203,7 @@ export default {
       this.toggleBusy();
       var id = this.accounts.splice(i, 1).id;
       let closeUrl = process.env.VUE_APP_ACCOUNT + id;
-      this.axios.delete(closeUrl).then(function() {});
+      this.axios.delete(closeUrl);
       this.toggleBusy();
       // this.$refs.table.refresh();
     },

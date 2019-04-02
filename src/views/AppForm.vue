@@ -50,9 +50,9 @@ export default {
   methods: {
     userList: function(type) {
       if (type === "ROLE_TIER2") {
-        return ["CUSTOMER", "MERCHANT"];
+        return ["ROLE_CUSTOMER", "ROLE_MERCHANT"];
       } else if (type === "ROLE_TIER3") {
-        return ["TIER1", "TIER2"];
+        return ["ROLE_TIER1", "ROLE_TIER2"];
       }
     },
     userTest: function() {
