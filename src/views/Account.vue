@@ -1,8 +1,8 @@
 <template>
   <div class="account container">
     <AccDetails :userId="this.id"/>
-    <TransList :account="this.accountid" v-if="this.usertype !== 'ROLE_ADMIN'"/>
-    <Log :userid="this.id" v-if="this.usertype === 'ROLE_ADMIN'"/>
+    <TransList v-if="this.user !== 'ROLE_ADMIN'"/>
+    <Log :userid="this.id" v-if="this.user === 'ROLE_ADMIN'"/>
   </div>
 </template>
 
@@ -18,24 +18,10 @@ export default {
     TransList,
     Log
   },
-  props: {
-    userid: {
-      type: Number,
-      required: true
-    },
-    accountid: {
-      type: Number
-    },
-    usertype: {
-      type: String,
-      required: true
-    }
-  },
   data: function() {
     return {
-      id: this.userid,
-      account: this.accountid,
-      user: this.usertype
+      id: this.$route.params.userid,
+      user: this.$route.params.usertype
     };
   }
 };

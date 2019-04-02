@@ -242,11 +242,11 @@ export default {
       this.toggleBusy();
       this.axios.get(this.accountUrl, this.head).then(response => {
         this.accounts = response.data;
-        console.log(this.accounts);
+        //console.log(this.accounts);
       });
       this.totalRows = this.accounts.length;
       this.toggleBusy();
-      this.$refs.table.refresh();
+      // this.$refs.table.refresh();
     },
     getAction: function() {
       if (this.user === "ROLE_TIER2") {
@@ -269,7 +269,7 @@ export default {
       let closeUrl = process.env.VUE_APP_ACCOUNT + id;
       this.axios.delete(closeUrl, this.head).then(function() {});
       this.toggleBusy();
-      this.$refs.table.refresh();
+      // this.$refs.table.refresh();
     },
     updateField: function() {
       var field = Object.keys(this.accounts[0]);
@@ -280,7 +280,7 @@ export default {
       return field;
     },
     loadAccount: function(item) {
-      if(this.userType === "ROLE_TIER1" || this.userType === "ROLE_TIER2")
+      //if(this.userType === "ROLE_TIER1" || this.userType === "ROLE_TIER2")
       {this.$router.push(this.forUser(item));}
     },
     forUser: function(item) {
@@ -293,6 +293,7 @@ export default {
           params: { userid: this.id, usertype: this.userType }
         };
       } else {
+        //console.log(item.userId);
         return {
           name: "account",
           params: { userid: item.userId, usertype: item.usertypeid }

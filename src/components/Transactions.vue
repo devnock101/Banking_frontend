@@ -37,17 +37,10 @@ export default {
   mounted: function() {
     this.getTransactions();
   },
-  props: {
-    account: {
-      type: String,
-      required: true
-    }
-  },
   data: function() {
     return {
       isBusy: false,
       perPage: 5,
-      accid: this.account,
       currentPage: 1,
       totalRows: "",
       transaction: [
@@ -120,12 +113,12 @@ export default {
   methods: {
     getTransactions: function() {
       this.toggleBusy();
-      let transList = process.env.VUE_APP_TRANS_VIEW + this.accid;
+      let transList = process.env.VUE_APP_TRANS_LIST;
       this.axios.get(transList).then(response => {
-        this.transactions = response.data;
+        this.transaction = response.data;
       });
       this.totalRows = this.transaction.length;
-      this.$refs.table.refresh();
+      // this.$refs.table.refresh();
       this.toggleBusy();
     },
     toggleBusy: function() {
