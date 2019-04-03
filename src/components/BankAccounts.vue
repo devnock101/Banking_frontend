@@ -33,20 +33,6 @@
             <template slot="Close" slot-scope="data">
               <b-button variant="primary" @click="accClose(data.index)">Close</b-button>
             </template>
-
-            <!-- <template slot="View" slot-scope="row">
-              <b-button
-                variant="primary"
-                @click="row.toggleDetails"
-              >{{ row.detailsShowing ? 'Hide' : 'Show'}} Details</b-button>
-            </template>
-
-            <template slot="row-details" slot-scope="row">
-              <b-card>
-                <AccDetails :userId="row.item.userid"/>
-                <TransList/>
-              </b-card>
-            </template>-->
           </b-table>
           <b-row>
             <b-col md="6" class="my-1">

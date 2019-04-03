@@ -1,9 +1,12 @@
 <template>
-  <div class="container d-flex">
+  <b-tabs card pills content-class="mt-3">
+      <b-tab title="Modify">
+    <b-card header="Modify Account Details" header-bg-variant="dark" header-text-variant="light">
+      <div class="container d-flex">
     <div v-if="userId !== null" class="userform container">
-      <b-card header="Account Details" header-bg-variant="dark" header-text-variant="light">
+
         <b-table class="table" striped stacked outlined :items="details"></b-table>
-      </b-card>
+
     </div>
     <div class="userform container">
       <b-card no-body border-variant="light">
@@ -156,7 +159,16 @@
         </b-form>
       </b-card>
     </div>
-  </div>
+      </div>
+    </b-card>
+      </b-tab>
+      <template slot="tabs">
+        <b-nav-item @click="back">Back</b-nav-item>
+      </template>
+      <template slot="tabs">
+        <b-nav-item @click="logout">Logout</b-nav-item>
+      </template>
+    </b-tabs>
 </template>
 
 <script>
@@ -224,6 +236,16 @@ export default {
           this.details.push(this.temp);
         });
       }
+    },
+    back: function() {
+      this.$router.push({ path: "/user" });
+    },
+    logout: function() {
+      let logOut = process.env.VUE_APP_LOGOUT;
+      this.axios.get(logOut).then(()=>{
+        this.$router.push({ path: "/" });
+      });
+      this.$router.push({ path: "/" });
     },
     checkForm: function(e) {
       this.errors = [];
