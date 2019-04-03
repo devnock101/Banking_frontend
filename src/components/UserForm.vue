@@ -1,12 +1,11 @@
 <template>
-  <b-tabs card pills content-class="mt-3">
+  <div>
+  <b-tabs card pills content-class="mt-3" v-if="userId !== null" >
       <b-tab title="Modify">
     <b-card header="Modify Account Details" header-bg-variant="dark" header-text-variant="light">
       <div class="container d-flex">
-    <div v-if="userId !== null" class="userform container">
-
+    <div class="userform container">
         <b-table class="table" striped stacked outlined :items="details"></b-table>
-
     </div>
     <div class="userform container">
       <b-card no-body border-variant="light">
@@ -169,6 +168,144 @@
         <b-nav-item @click="logout">Logout</b-nav-item>
       </template>
     </b-tabs>
+    <div class="container" v-if="userId === null" >
+      <div class="userform container">
+          <b-form>
+            <div class="d-flex">
+              <b-input
+                      class="input1"
+                      type="text"
+                      v-model="obj.userObj.firstname"
+                      placeholder="First Name"
+              />
+              <b-input
+                      class="input2"
+                      type="text"
+                      v-model="obj.userObj.lastname"
+                      placeholder="Last name"
+              />
+            </div>
+            <div class="d-flex">
+              <b-input
+                      v-if="this.userId === null"
+                      type="text"
+                      class="input1"
+                      v-model="obj.userObj.user"
+                      placeholder="Username"
+              />
+              <b-form-select
+                      v-model="obj.userObj.usertypeid"
+                      class="input2"
+                      :options="this.userTypes"
+              >
+                <template slot="first">
+                  <option :value="null" disabled>Please select a user type</option>
+                </template>
+              </b-form-select>
+            </div>
+            <div class="d-flex">
+              <b-input
+                      v-if="this.userId === null"
+                      v-model="obj.userObj.pass"
+                      class="input1"
+                      type="password"
+                      name="pass"
+                      placeholder="Password"
+              />
+              <b-input
+                      v-if="this.userId === null"
+                      v-model="pass2"
+                      type="password"
+                      name="pass_verify"
+                      placeholder="Verify Password"
+                      class="input2"
+              />
+            </div>
+            <div class="d-flex">
+              <b-input
+                      name="date_between_field"
+                      type="date"
+                      v-model="obj.userObj.dob"
+                      class="input1"
+                      placeholder=" Date of Birth"
+              />
+              <b-input
+                      class="input2"
+                      v-model="obj.userObj.email"
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+              />
+            </div>
+            <div class="d-flex">
+              <b-input
+                      v-model.number="obj.userObj.phone"
+                      class="input1"
+                      type="tel"
+                      name="phone"
+                      placeholder="Phone"
+              />
+              <b-input
+                      v-model.number="obj.userObj.phone2"
+                      type="tel"
+                      class="input2"
+                      name="phone2"
+                      placeholder="Alternate Phone"
+              />
+            </div>
+            <div class="d-flex">
+              <b-input
+                      v-model="obj.addressObj.street"
+                      type="text"
+                      class="input1"
+                      name="street"
+                      placeholder="Street Address"
+              />
+              <b-input
+                      v-model="obj.addressObj.street2"
+                      type="text"
+                      class="input2"
+                      name="street2"
+                      placeholder="Street Address (Optional)"
+              />
+            </div>
+            <div class="d-flex">
+              <b-input
+                      v-model="obj.addressObj.city"
+                      type="text"
+                      class="input1"
+                      name="city"
+                      placeholder="Town/City"
+              />
+              <b-input
+                      v-model="obj.addressObj.state"
+                      type="text"
+                      class="input2"
+                      name="state"
+                      placeholder="State"
+              />
+            </div>
+            <div class="d-flex">
+              <b-input
+                      v-model="obj.addressObj.country"
+                      type="text"
+                      class="input1"
+                      name="country"
+                      placeholder="Country"
+              />
+              <b-input
+                      v-model.number="obj.addressObj.zipcode"
+                      type="text"
+                      class="input2"
+                      name="zip"
+                      placeholder="Zip Code"
+              />
+            </div>
+            <b-button variant="primary" class="input3" @click="submitForm">Add</b-button>
+          </b-form>
+      </div>
+    </div>
+    </div>
 </template>
 
 <script>
