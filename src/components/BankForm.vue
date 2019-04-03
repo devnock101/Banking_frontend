@@ -5,8 +5,8 @@
         <b-form-select
           id="userid"
           class="input"
-          v-model.number="userObj.userId"
-          :options = "this.userIdList"
+          v-model.number="extra"
+          :options="this.userIdList"
           v-if="this.userid === null"
         >
           <template slot="first">
@@ -14,7 +14,7 @@
           </template>
         </b-form-select>
         <b-form-select
-          v-model= "userObj.bankingAccountType"
+          v-model="userObj.bankingAccountType"
           class="input3"
           :options="this.users"
         >
@@ -50,11 +50,12 @@ export default {
       userid: this.id,
       userList: [],
       userIdList: [],
+      extra: null,
       userObj: {
         userId: null,
+        accountNumber: null,
         bankingAccountType: null,
         balance: 0,
-        accountNumber: -9999,
         status: "PENDING"
       }
     };
@@ -70,7 +71,15 @@ export default {
         }
       });
     },
+    userIDFunc: function() {
+      if(this.userid === null) {
+        this.userObj.userId = this.extra;
+      } else {
+        this.userObj.userId = this.userid;
+      }
+    },
     submitForm: function() {
+      this.userIDFunc();
       let createUrl = process.env.VUE_APP_ACCOUNT_CREATE;
       this.axios.post(createUrl, this.userObj);
       this.$router.push({ name: "user" });
