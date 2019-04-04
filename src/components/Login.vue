@@ -23,17 +23,36 @@
         </b-form>
       </div>
     </b-card>
+    <div>
+      <keyboard
+              v-model="input"
+              @custom="custom"
+              @input="changed"
+              :layouts="[
+        '1234567890{delete:backspace}|qwertyuiop-|asdfghjkl=/|{caps:goto:1}zxcvbnm,.|{space:space}{Toggle-Username-Password:custom}',
+        '!@#$%^&*(){delete:backspace}|QWERTYUIOP_|ASDFGHJKL+?|{caps:goto:0}ZXCVBNM<>|{space:space}{Toggle-Username-Password:custom}'
+    ]"
+              :maxlength="16"
+      ></keyboard>
+    </div>
   </div>
 </template>
 
 <script>
+  import keyboard from "vue-keyboard";
+
 export default {
   name: "login",
   data: function() {
     return {
       username: "",
-      password: ""
+      password: "",
+      tag: false,
+      input:""
     };
+  },
+  components: {
+    keyboard
   },
   methods: {
     login: function() {
@@ -47,6 +66,18 @@ export default {
         .then(() => {
           self.$router.push({ name: "user" });
         });
+    },
+    changed() {
+      if(!this.tag){
+        this.username = this.input;
+      } else {
+        this.password = this.input;
+      }
+    },
+
+    custom() {
+      this.input = "";
+      this.tag = !this.tag;
     }
   }
 };
@@ -57,6 +88,6 @@ export default {
   align-self: auto;
   align-content: center;
   width: 40%;
-  margin: 22% auto;
+  margin: 12% auto;
 }
 </style>
