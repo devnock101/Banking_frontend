@@ -434,7 +434,7 @@ export default {
       console.log(this.obj);
       let createUrl = process.env.VUE_APP_USER_MODIFY;
       if(this.obj.userObj.pass === this.pass2){
-        this.axios.post(createUrl, this.obj).then(() => {this.$router.push({ name: "user" });});
+        this.axios.put(createUrl, this.obj).then(() => {this.$router.push({ name: "user" });});
       }
     }
   }
