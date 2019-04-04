@@ -17,7 +17,7 @@
               <option
                 :value="null"
                 disabled
-                v-if="this.act === 'credit'||this.act === 'debit'"
+                v-if="this.act === 'credit'||this.act === 'debit'||this.act === 'check'"
               >Please select an account</option>
             </template>
           </b-form-select>
@@ -29,6 +29,14 @@
             v-model="emailOrPhone"
             placeholder="Send using email or phone"
             v-if="this.act === 'transfer'"
+          />
+
+          <b-input
+                  id="check"
+                  class="input"
+                  type="text"
+                  placeholder="Name on the check"
+                  v-if="this.act === 'check'"
           />
 
           <b-form-select

@@ -84,6 +84,12 @@
         >
           <Move :userId="this.userId" :action="this.transfer"/>
         </b-tab>
+        <b-tab
+                title="Cashiers Check"
+                v-if="this.user === 'ROLE_CUSTOMER' || this.user === 'ROLE_MERCHANT'"
+        >
+          <Move :userId="this.userId" :action="this.check"/>
+        </b-tab>
       </b-tabs>
     </b-card>
   </div>
@@ -135,6 +141,7 @@ export default {
       transfer: "transfer",
       credit: "credit",
       debit: "debit",
+      check: "check",
       action_transaction: null,
       perPage: 8,
       currentPage: 1,
