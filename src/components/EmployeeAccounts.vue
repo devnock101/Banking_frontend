@@ -103,7 +103,7 @@ export default {
       let id = this.accounts[temp].userid;
       this.accounts.splice(temp, 1);
       // console.log(id);
-      let deleteUrl = process.env.VUE_APP_USER + id;
+      let deleteUrl = process.env.VUE_APP_USER + "/employees/" + id;
       this.axios.delete(deleteUrl);
       // this.$refs.table.refresh();
     },
