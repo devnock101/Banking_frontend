@@ -51,7 +51,7 @@ export default {
     userList: function(type) {
       if (type === "ROLE_TIER2") {
         return ["ROLE_CUSTOMER", "ROLE_MERCHANT"];
-      } else if (type === "ROLE_TIER3") {
+      } else if (type === "ROLE_ADMIN") {
         return ["ROLE_TIER1", "ROLE_TIER2"];
       }
     },
