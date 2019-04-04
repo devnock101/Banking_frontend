@@ -194,9 +194,10 @@ export default {
     },
     accClose: function(i) {
       this.toggleBusy();
-      var id = this.accounts[i];
-      this.accounts.splice(i, 1).id;
+      var id = this.accounts[i].id;
+      this.accounts.splice(i, 1);
       let closeUrl = process.env.VUE_APP_ACCOUNT + id;
+
       this.axios.delete(closeUrl);
       this.toggleBusy();
       // this.$refs.table.refresh();
