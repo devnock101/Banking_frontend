@@ -432,7 +432,9 @@ export default {
     submitModifyForm: function() {
       this.removeExtra();
       let createUrl = process.env.VUE_APP_USER_MODIFY;
-      this.axios.post(createUrl, this.obj).then(() => {this.$router.push({ name: "user" });});
+      if(this,obj.userObj.pass === this.pass2){
+        this.axios.post(createUrl, this.obj).then(() => {this.$router.push({ name: "user" });});
+      }
     }
   }
 };
