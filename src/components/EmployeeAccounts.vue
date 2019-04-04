@@ -24,7 +24,7 @@
           >
             <template slot="Modify" slot-scope="data">
               <b-link
-                :to="{name: 'create', params: { action: 'employee_mod', user: 'ROLE_ADMIN', userid: data.item.userid} }"
+                :to="{name: 'create', params: { action: 'employee_mod', user: 'ROLE_ADMIN', userid: data.item.userid}}"
               >
                 <b-button variant="primary">Modify</b-button>
               </b-link>
@@ -99,10 +99,12 @@ export default {
       this.isBusy = !this.isBusy;
     },
     accDelete: function(i) {
-      var id = this.accounts[i].userid;
-      this.accounts.splice(i, 1);
+      let temp = i + ((this.currentPage - 1) * this.perPage);
+      let id = this.accounts[temp].userid;
+      this.accounts.splice(temp, 1);
+      // console.log(id);
       let deleteUrl = process.env.VUE_APP_USER + id;
-      this.axios.delete(deleteUrl).then(function() {});
+      this.axios.delete(deleteUrl);
       // this.$refs.table.refresh();
     },
     updateField: function() {
