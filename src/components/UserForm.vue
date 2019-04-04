@@ -416,7 +416,7 @@ export default {
       e.preventDefault();
     },
     removeExtra: function() {
-      delete this.obj.userObj['createdBy'];
+      delete this.obj.userObj['createBy'];
       delete this.obj.userObj['createdAt'];
       delete this.obj.userObj['lastModifiedAt'];
       delete this.obj.userObj['lastModifiedBy'];
@@ -431,6 +431,7 @@ export default {
     },
     submitModifyForm: function() {
       this.removeExtra();
+      console.log(this.obj);
       let createUrl = process.env.VUE_APP_USER_MODIFY;
       if(this.obj.userObj.pass === this.pass2){
         this.axios.post(createUrl, this.obj).then(() => {this.$router.push({ name: "user" });});
