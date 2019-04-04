@@ -204,7 +204,7 @@ export default {
         return "TRANSFER";
       } else if (this.act === "credit") {
         return "CREDIT";
-      } else if (this.act === "debit") {
+      } else if (this.act === "debit" || this.act === "check") {
         return "DEBIT";
       }
     },
