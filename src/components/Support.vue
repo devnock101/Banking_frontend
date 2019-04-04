@@ -75,11 +75,24 @@
         <!-- <b-card-subtitle v-if="this.errorMessage===''"></b-card-subtitle>
         <b-card-subtitle v-else>{{this.errorMessage}}</b-card-subtitle>-->
       </b-card-body>
+        <div>
+            <keyboard
+                    v-model="input"
+                    @custom="custom"
+                    @input="changed"
+                    :layouts="[
+        '123|456|789|0{delete:backspace}'
+    ]"
+                    :maxlength="16"
+            ></keyboard>
+        </div>
     </b-card>
   </div>
 </template>
 <!--<script src="src/keyboard.js"></script>-->
 <script>
+    import keyboard from "vue-keyboard";
+
 export default {
   name: "support",
     props: {
@@ -101,6 +114,7 @@ export default {
       //     otp: null
       //
       // },
+        input:"",
         enteredOtp: null,
         optRequestId: null,
       postBody: {
@@ -116,6 +130,9 @@ export default {
       //   ,errorMessage: ""
     };
   },
+    components: {
+        keyboard
+    },
   methods: {
     postAppointment() {
       console.log(this.postBody.appointmenttime);
@@ -126,6 +143,12 @@ export default {
       console.log(this.postBody);
           let helpDetails = process.env.VUE_APP_HELP_APPOINT;
           this.axios.post(helpDetails, this.postBody);
+    },
+    changed() {
+        this.enteredOtp = this.input;
+    },
+    custom() {
+        this.input = "";
     },
     getOtp: function(){
 

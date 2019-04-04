@@ -194,7 +194,7 @@ export default {
     },
     accClose: function(i) {
       this.toggleBusy();
-      var id = this.accounts[i].id;
+      var id = this.accounts[i].userId;
       this.accounts.splice(i, 1);
       let closeUrl = process.env.VUE_APP_ACCOUNT + id;
 
