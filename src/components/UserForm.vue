@@ -154,7 +154,7 @@
               placeholder="Zip Code"
             />
           </div>
-          <b-button variant="primary" class="input3" @click="submitForm">Add</b-button>
+          <b-button variant="primary" class="input3" @click="submitCreateForm">Add</b-button>
         </b-form>
       </b-card>
     </div>
@@ -301,7 +301,7 @@
                       placeholder="Zip Code"
               />
             </div>
-            <b-button variant="primary" class="input3" @click="submitForm">Add</b-button>
+            <b-button variant="primary" class="input3" @click="submitModifyForm">Add</b-button>
           </b-form>
       </div>
     </div>
@@ -425,9 +425,13 @@ export default {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
-    submitForm: function() {
-      this.removeExtra();
+    submitCreateForm: function() {
       let createUrl = process.env.VUE_APP_USER_CREATE;
+      this.axios.post(createUrl, this.obj).then(() => {this.$router.push({ name: "user" });});
+    },
+    submitModifyForm: function() {
+      this.removeExtra();
+      let createUrl = process.env.VUE_APP_USER_MODIFY;
       this.axios.post(createUrl, this.obj).then(() => {this.$router.push({ name: "user" });});
     }
   }
