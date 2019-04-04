@@ -154,7 +154,7 @@
               placeholder="Zip Code"
             />
           </div>
-          <b-button variant="primary" class="input3" @click="submitCreateForm">Add</b-button>
+          <b-button variant="primary" class="input3" @click="submitModifyForm">Add</b-button>
         </b-form>
       </b-card>
     </div>
@@ -301,7 +301,7 @@
                       placeholder="Zip Code"
               />
             </div>
-            <b-button variant="primary" class="input3" @click="submitModifyForm">Add</b-button>
+            <b-button variant="primary" class="input3" @click="submitCreateForm">Add</b-button>
           </b-form>
       </div>
     </div>
