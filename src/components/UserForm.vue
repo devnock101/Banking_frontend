@@ -415,11 +415,18 @@ export default {
       }
       e.preventDefault();
     },
+    removeExtra: function() {
+      delete this.obj.userObj['createdBy'];
+      delete this.obj.userObj['createdAt'];
+      delete this.obj.userObj['lastModifiedAt'];
+      delete this.obj.userObj['lastModifiedBy'];
+    },
     validEmail: function(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
     submitForm: function() {
+      this.removeExtra();
       let createUrl = process.env.VUE_APP_USER_CREATE;
       this.axios.post(createUrl, this.obj).then(() => {this.$router.push({ name: "user" });});
     }
