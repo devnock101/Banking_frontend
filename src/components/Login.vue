@@ -24,16 +24,16 @@
       </div>
     </b-card>
     <div>
-      <keyboard
-              v-model="input"
-              @custom="custom"
-              @input="changed"
-              :layouts="[
-        '1234567890{delete:backspace}|qwertyuiop-|asdfghjkl=/|{caps:goto:1}zxcvbnm,.|{space:space}{Toggle-Username-Password:custom}',
-        '!@#$%^&*(){delete:backspace}|QWERTYUIOP_|ASDFGHJKL+?|{caps:goto:0}ZXCVBNM<>|{space:space}{Toggle-Username-Password:custom}'
-    ]"
-              :maxlength="16"
-      ></keyboard>
+<!--      <keyboard-->
+<!--              v-model="input"-->
+<!--              @custom="custom"-->
+<!--              @input="changed"-->
+<!--              :layouts="[-->
+<!--        '1234567890{delete:backspace}|qwertyuiop-|asdfghjkl=/|{caps:goto:1}zxcvbnm,.|{space:space}{Toggle-Username-Password:custom}',-->
+<!--        '!@#$%^&*(){delete:backspace}|QWERTYUIOP_|ASDFGHJKL+?|{caps:goto:0}ZXCVBNM<>|{space:space}{Toggle-Username-Password:custom}'-->
+<!--    ]"-->
+<!--              :maxlength="16"-->
+<!--      ></keyboard>-->
     </div>
   </div>
 </template>

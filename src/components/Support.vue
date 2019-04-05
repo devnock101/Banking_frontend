@@ -76,15 +76,15 @@
         <b-card-subtitle v-else>{{this.errorMessage}}</b-card-subtitle>-->
       </b-card-body>
         <div>
-            <keyboard
-                    v-model="input"
-                    @custom="custom"
-                    @input="changed"
-                    :layouts="[
-        '123|456|789|0{delete:backspace}'
-    ]"
-                    :maxlength="16"
-            ></keyboard>
+<!--            <keyboard-->
+<!--                    v-model="input"-->
+<!--                    @custom="custom"-->
+<!--                    @input="changed"-->
+<!--                    :layouts="[-->
+<!--        '123|456|789|0{delete:backspace}'-->
+<!--    ]"-->
+<!--                    :maxlength="16"-->
+<!--            ></keyboard>-->
         </div>
     </b-card>
   </div>
